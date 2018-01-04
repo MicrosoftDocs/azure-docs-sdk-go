@@ -13,5 +13,5 @@ items:
       href: azure-sdk-go-qs-vm.md
   - name: Samples
     href: http://github.com/azure-samples/azure-sdk-for-go-samples
-  - name: Reference
+  - name: API reference
     href: https://godoc.org/github.com/Azure/azure-sdk-for-go

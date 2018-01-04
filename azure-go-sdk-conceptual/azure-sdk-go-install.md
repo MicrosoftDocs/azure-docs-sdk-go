@@ -17,6 +17,23 @@ Welcome to the Azure SDK for Go! This SDK allows you to manage Azure services fr
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
+If you plan on working with Azure Storage Blobs, you will need to get the separate SDK for working with those services.
+
+```bash
+go get -u -d github.com/Auzre/azure-storage-blob-go
+```
+
+If you prefer, the Azure SDK for Go can also be vendored through [godep](https://github.com/golang/dep). Until the official GA release,
+there may be breaking changes in the SDK, so it is strongly recommended that you select a specific version and use vendoring. In order
+to use `go dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version
+`12.0.0-beta`, add the following. 
+
+```
+[[constraint]]
+name = "github.com/Azure/azure-sdk-for-go"
+version = "12.0.0-beta"
+```
+
 There is no additional configuration required for your environment. All of the information needed to connect to and use Azure services 
 is performed through code.
 
