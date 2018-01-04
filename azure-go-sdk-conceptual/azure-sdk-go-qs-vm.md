@@ -17,17 +17,17 @@ in a logical container, allowing them to link together easily and be managed as 
 
 This quickstart focuses on how to deploy an existing template with Go. While it's easy to work with tools like the Azure CLI to create resources from a deployment, this is an easy way to get you familiar with the functionality and conventions of the SDK while still performing a useful and common task. At the end of this quickstart you will have a running VM that you can log into with a username and password.
 
-[!INCLUDE [quickstarts-free-trial-note](../../../includes/quickstarts-free-trial-note.md)]
+[!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
 <!-- Includes the 'Launch Azure Cloud Shell' section -->
-[!INCLUDE [cloud-shell-try-it.md](../../../includes/cloud-shell-try-it.md)]
+[!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
 If you choose to install and use the CLI locally, this quickstart requires that you are running the Azure CLI version 2.0.4 or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install Azure CLI 2.0](/cli/azure/install-azure-cli).
 
 ## Install the Azure SDK for Go 
 
 <!-- Intentionally does not include header -->
-[!INCLUDE [azure-sdk-go-get](../../../includes/azure-sdk-go-get.md)]
+[!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
 ## Create a service principal
 

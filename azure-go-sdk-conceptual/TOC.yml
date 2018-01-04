@@ -1,14 +1,17 @@
-- name: Azure SDK for Go developers
-  href: index.yml
-- name: Overview
-  items:
-  - name: Installation and configuration 
-    href: azure-sdk-go-install.md
-  - name: Tools
-    href: azure-sdk-go-tools.md
-- name: Quickstarts
-  items:
-  - name: Deploy a virtual machine
-    href: azure-sdk-go-qs-vm.md
-- name: Samples
-  href: http://github.com/azure-samples/azure-sdk-for-go-samples
+items:
+  - name: Azure SDK for Go developers
+    href: index.yml
+  - name: Overview
+    items:
+    - name: Installation and configuration 
+      href: azure-sdk-go-install.md
+    - name: Tools
+      href: azure-sdk-go-tools.md
+  - name: Quickstarts
+    items:
+    - name: Deploy a virtual machine
+      href: azure-sdk-go-qs-vm.md
+  - name: Samples
+    href: http://github.com/azure-samples/azure-sdk-for-go-samples
+  - name: Reference
+    href: https://godoc.org/github.com/Azure/azure-sdk-for-go
