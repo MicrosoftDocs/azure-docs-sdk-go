@@ -42,3 +42,4 @@ If you will be using the Azure CLI for working with Azure resources outside of y
 
 Microsoft only offers official Go support for Visual Studio Code.  If you require Go support for another Visual Studio version, 
 you can find unofficial plugins in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/vs).
+
