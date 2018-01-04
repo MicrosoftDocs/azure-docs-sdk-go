@@ -1,0 +1,63 @@
+### YamlMime:YamlDocument
+documentType: LandingData
+title: Azure for Go developers
+metadata:
+  title: Azure for Go developers - Tutorials, API Reference
+  description: Get started developing with the Azure SDK for Go using the developer resources below.
+  keywords: Azure, Go, golang, SDK, API
+  author: sptramer
+  ms.author: sttramer
+  manager: routlaw
+  ms.date: 12/21/17
+  ms.topic: article
+  featureFlags:
+  - clicktale
+  ms.prod: azure
+  ms.technology: azure
+  ms.devlang: golang
+  ms.service: multiple
+sections:
+- items:
+  - type: markdown
+    text: |
+      Get started developing apps with the Azure SDK for Go using our official tutorials and tools.
+- items:
+  - type: list
+    style: cards
+    className: cardsM
+    columns: 2
+    items:
+    - title: Code Samples
+      html: <p>Azure code samples using Go</p>
+      image:
+        src: https://docs.microsoft.com/en-us/media/common/i_code-samples.svg
+      href: https://github.com/azure-samples/azure-sdk-for-go-samples
+    - title: SDK &amp; Tools
+      html: <p>Developer tools</p>
+      href: https://docs.microsoft.com/golang/azure/azure-sdk-go-tools 
+      image:
+        src: https://docs.microsoft.com/media/common/i_download-install.svg
+    - title: API Reference
+      html: <p>GoDoc for Azure SDK for Go</p>
+      href: https://godoc.org/github.com/Azure/azure-sdk-for-go
+      image:
+        src: https://docs.microsoft.com/media/common/i_api-reference.svg
+- title: 5-Minute Quickstarts
+  items:
+  - type: paragraph
+    text: 'Learn how to build Go apps with Azure services.'
+  - type: list
+    style: cards
+    className: cardsM
+    columns: 2
+    items: 
+    - image:
+        src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
+      title: Deploy a virtual machine to Azure
+      href: https://docs.microsoft.com/golang/azure/azure-sdk-go-qs-vm
+- title: Samples
+  items:
+  - type: list
+    style: unordered
+    items:
+    - html: <p>TODO</p>
