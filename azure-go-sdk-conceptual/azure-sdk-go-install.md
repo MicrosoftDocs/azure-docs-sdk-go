@@ -15,7 +15,7 @@ manager: routlaw
 
 Welcome to the Azure SDK for Go! This SDK allows you to manage Azure services from your Go applications and take advantage of client-side interactions with them. With the Go SDK you can manage [virtual machines](https://azure.microsoft.com/en-us/services/virtual-machines/), boot up [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/), access [Azure Storage](https://azure.microsoft.com/en-us/services/storage/), manage secrets in [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/), and much more.
 
-[!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get)]
+[!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
 There is no additional configuration required for your environment. All of the information needed to connect to and use Azure services 
 is performed through code.
