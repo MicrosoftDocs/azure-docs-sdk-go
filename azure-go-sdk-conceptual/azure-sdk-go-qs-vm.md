@@ -59,6 +59,7 @@ This code will compile out of the box, but doesn't run correctly until you provi
 There are also values you will need to edit in the `vm-quickstart-params.json` file:
 
 * `vm_password`: The password for the VM user account. This must follow the following password restrictions: It must be at least 6 characters in length, and contain 3 of the following: A lowercase letter, an uppercase letter, a number, or a symbol.
+
 ## Running the code
 
 Run the quickstart with the `go run` command.

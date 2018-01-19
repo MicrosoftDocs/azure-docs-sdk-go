@@ -32,8 +32,8 @@ Visual Studio Code is a lightweight editor that has comprehensive support for th
 include support for features like autocomplete, `impl` templates, refactoring, and debugging. Visual Studio Code also offers many 
 extensions for common developer tools such as source control, and even offers extensions for direct interactions with Azure services.
 
-[Install Visual Studio Code](https://code.visualstudio.com/Download)
-[Install the Visual Studio Code Go extension](https://code.visualstudio.com/docs/languages/go)
+* [Install Visual Studio Code](https://code.visualstudio.com/Download)
+* [Install the Visual Studio Code Go extension](https://code.visualstudio.com/docs/languages/go)
 
 If you will be using the Azure CLI for working with Azure resources outside of your code, we also recommend installing the
 [Azure CLI Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azurecli) plugin.

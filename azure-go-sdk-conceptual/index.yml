@@ -34,7 +34,7 @@ sections:
       href: https://github.com/azure-samples/azure-sdk-for-go-samples
     - title: SDK &amp; Tools
       html: <p>Developer tools</p>
-      href: https://docs.microsoft.com/golang/azure/azure-sdk-go-tools 
+      href: https://docs.microsoft.com/go/azure/azure-sdk-go-tools 
       image:
         src: https://docs.microsoft.com/media/common/i_download-install.svg
     - title: API Reference
@@ -42,10 +42,10 @@ sections:
       href: https://godoc.org/github.com/Azure/azure-sdk-for-go
       image:
         src: https://docs.microsoft.com/media/common/i_api-reference.svg
-- title: 5-Minute Quickstarts
+- title: Quickstarts
   items:
   - type: paragraph
-    text: 'Learn how to build Go apps with Azure services.'
+    text: 'Learn how to work with Azure services from  Go.'
   - type: list
     style: cards
     className: cardsM
@@ -54,7 +54,7 @@ sections:
     - image:
         src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
       title: Deploy a virtual machine to Azure
-      href: https://docs.microsoft.com/golang/azure/azure-sdk-go-qs-vm
+      href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
 - title: Samples
   items:
   - type: list
