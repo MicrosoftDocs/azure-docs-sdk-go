@@ -280,7 +280,7 @@ func getLogin() {
         addressClient := network.NewPublicIPAddressesClient(config.SubscriptionID)
         addressClient.Authorizer = autorest.NewBearerAuthorizer(token)
         ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
-        ipAddress, err := addressClient.Get(resourceGroupName, ipName["value"].(string), "")
+        ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
         if err != nil {
                 log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
         }
@@ -296,8 +296,6 @@ func getLogin() {
 ```
 
 This method relies on information that is stored in the parameters file. We could have also queried the VM directly to get its NIC, and then queried the NIC to find which IP resource it's associated with, and then queried that. But that's a long chain of dependencies and operations to resolve, making it expensive compared to a lookup of a value contained within local data. Since the JSON information is not loaded into an annotated struct, it needs to be typecast to get the string values to display. Fortunately, there is no need for a type switch since we know the exact format of the JSON file itself.
-
-You might notice that the signature for `Get()` is different in this case than earlier ones, in that it does not take a `Context` object and isn't a long-running operation. This is because this method was generated from an earlier version of [go-autorest](https://github.com/azure/go-autorest), the library which provides the generated code that allows for operation with services. Until the GA release of the SDK, you may encounter other methods like these. The [reference documentation](https://godoc.org/github.com/Azure/azure-sdk-for-go) will help guide you. Long-running operations built off of older generated code also _do not_ use `Future` objects. Instead they rely on channels. Be aware of function return types!
 
 ## Next steps
 
