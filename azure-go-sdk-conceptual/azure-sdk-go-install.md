@@ -20,10 +20,10 @@ Welcome to the Azure SDK for Go! This SDK allows you to manage Azure services fr
 If you plan on working with Azure Storage Blobs, you will need to get the separate SDK for working with those services.
 
 ```bash
-go get -u -d github.com/Auzre/azure-storage-blob-go
+go get -u -d github.com/Auzre/azure-storage-blob-go/...
 ```
 
-If you prefer, the Azure SDK for Go can also be vendored through [godep](https://github.com/golang/dep). Until the official GA release,
+If you prefer, the Azure SDK for Go can also be vendored through [dep](https://github.com/golang/dep). Until the official GA release,
 there may be breaking changes in the SDK, so it is strongly recommended that you select a specific version and use vendoring. In order
 to use `go dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version
 `12.0.0-beta`, add the following. 
@@ -53,28 +53,28 @@ will interact with Azure services are the following.
 ### Azure service versions and profiles
 
 While the SDK is versioned semantically, Azure services themselves are versioned on deployment dates. There are also regularly generated
-_profiles_, which are dates when there is a snapshot of the active running service versions. All services within a profile are _guaranteed_ to be compatible. There is no interoperability guarantee with other service versions outside the profile.
+_profiles_, which are dates when there is a snapshot of the active running service versions. All services within a profile are _guaranteed_ to be compatible. 
+There is no interoperability guarantee with other service versions outside the profile.
 
 For this reason, service versions and profiles are important when working with Azure. They are exposed through the Go SDK as part of the
 import path for any service that you interact with. Care should be taken to make sure that the _same version profile_ is imported
 throughout any single project -- doing otherwise could introduce inconsistent behavior, as returned values from one Azure service
 may end up not being compatible as inputs to another service, if they are not from the same profile.
 
-Individual services can be imported by version, written as `YYYY-MM-dd`. For example to include the `2017-03-30` version of the `compute modile`, you use the following import.
-
-```golang
-import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
-```
-
-Profiles are written out as `YYYY-mm-dd`, `latest`, or `preview`. `latest` is always guaranteed to be the latest _stable_ profile, and `preview` is the release candidate for the next profile. Profiles are all contained within the `profiles` module, and have services grouped underneath their version. For example, to import the DNS management module for the latest profile,
-you use the following import.
+Profiles are contained in the `profiles` module, and versioned as `YYYY-mm-dd`, `latest`, or `preview`. `latest` is always guaranteed to be the 
+latest _stable_ profile, and `preview` is the release candidate for the next profile. Services are grouped underneath the profile version. For example, to import 
+the DNS management module for the latest profile, use the following import.
 
 ```golang
 import "github.com/Azure/azure-sdk-for-go/profiles/latest/dns/mgmt/dns"
 ```
 
-> [!IMPORTANT]
-> Any time you import a module with `github.com/Azure` as part of its path, `Azure` _must_ be capitalized. This is because it is captalized in dependent libraries.
+If you have a need to import an individual service at a specific version, they are contained within the `services` module and have their version 
+written as `YYYY-MM-dd`. Unlike profiles, versions are grouped under the service name. For example, to include the `2017-03-30` version of the `compute` module, use the following import.
+
+```golang
+import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
+```
 
 ## Next steps
 

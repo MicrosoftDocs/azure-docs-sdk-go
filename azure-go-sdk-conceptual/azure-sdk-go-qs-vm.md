@@ -12,8 +12,7 @@ manager: routlaw
 
 # Deploy an Azure virtual machine with the Azure SDK for Go
 
-[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your storage and compute resources distributed throughout Azure. It groups these resources together
-in a logical container, allowing them to link together easily and be managed as a group. Most importantly from an operations standpoint, it allows for using templates to deploy resources. Once created, resource groups can have their resource information exported as a template, which can then have some values supplied during resource creation via deployment that create distinct, but functionally identical, deployments to the original.
+[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your storage and compute resources distributed throughout Azure. It groups these resources together in a logical container, allowing them to link together easily and be managed as a group. Most importantly from an operations standpoint, it allows for using templates to deploy resources. Once created, resource groups can have their resource information exported as a template, which can then have some values supplied during resource creation via deployment that create distinct, but functionally identical, deployments to the original.
 
 This quickstart focuses on how to deploy an existing template with Go. While it's easy to work with tools like the Azure CLI to create resources from a deployment, this is an easy way to get you familiar with the functionality and conventions of the SDK while still performing a useful and common task. At the end of this quickstart you will have a running VM that you can log into with a username and password.
 
@@ -206,15 +205,16 @@ principal over OAuth.
 * Make the function call on the client corresponding to the remote API. These often take the name of the resource being constructed and a metadata object that defines the parameters
 to use during creation.
 
-Note that the `to.StringPtr()` function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are provided to make the type conversions easy. See the documentation for the [autorest.to]() module for the complete list and behavor of convenience converters.
+The `to.StringPtr()` function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are 
+provided to make the type conversions easy. See the documentation for the [autorest.to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
+and behavor of convenience converters.
 
-Take note that in this case, the `CreateOrUpdate()` operation returns a pointer to a struct. This indicates a short-running operation that is meant to be synchronous, which does not apply to every method in the SDK. In the next section, you'll see an example of a long-running operation and how to interact with them.
-
-Note that the function is called `createOrUpdate()`, which indicates that creation does not _necessarily_ fail if the group already exists. Instead, if possible, Azure tries to _update_ the settings on the resource.
+The `CreateOrUpdate()` operation returns a pointer to a struct. This indicates a short-running operation that is meant to be synchronous, which does not apply to 
+every method in the SDK. In the next section, you'll see an example of a long-running operation and how to interact with them.
 
 ### Performing the deployment
 
-Once the group to contain its resources is created, it's time to run the deployment. This code will be broken up into two chunks, to make it a little easier to discuss.
+Once the group to contain its resources is created, it's time to run the deployment. This code will be broken up into two chunks, to make it easier to understand.
 
 ```golang
 func createDeployment() (resources.DeploymentExtended, error) {
