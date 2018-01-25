@@ -12,16 +12,16 @@ manager: routlaw
 
 # Deploy an Azure virtual machine with the Azure SDK for Go
 
-[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your storage and compute resources distributed throughout Azure. It groups these resources together in a logical container, allowing them to link together easily and be managed as a group. Most importantly from an operations standpoint, it allows for using templates to deploy resources. Once created, resource groups can have their resource information exported as a template, which can then have some values supplied during resource creation via deployment that create distinct, but functionally identical, deployments to the original.
+[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your storage and compute resources distributed throughout Azure. It groups resources together in a logical container, allowing them to link together and be managed as a group. Most importantly from an operational standpoint, it allows the use of templates to deploy resources. Once created, resource groups can have their resource information exported as a template. These templates can be used to produce topologically identical deployments across an organization.
 
-This quickstart focuses on how to deploy an existing template with Go. While it's easy to work with tools like the Azure CLI to create resources from a deployment, this is an easy way to get you familiar with the functionality and conventions of the SDK while still performing a useful and common task. At the end of this quickstart you will have a running VM that you can log into with a username and password.
+This quickstart focuses on how to deploy an existing template with Go. While it's easy to work with tools like the Azure CLI to create resources from a deployment template, this quickstart will help get you familiar with the functionality and conventions of the SDK while performing a useful task. At the end of this quickstart you will have a running VM that you can log into with a username and password.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
 <!-- Includes the 'Launch Azure Cloud Shell' section -->
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-If you choose to install and use the CLI locally, this quickstart requires that you are running the Azure CLI version 2.0.4 or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install Azure CLI 2.0](/cli/azure/install-azure-cli).
+If you choose to install and use the CLI locally, this quickstart requires that you are running the Azure CLI version 2.0.4 or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
 
 ## Install the Azure SDK for Go 
 
@@ -30,7 +30,7 @@ If you choose to install and use the CLI locally, this quickstart requires that 
 
 ## Create a service principal
 
-In order to log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC) which create a unique user identity as well as a set of permissions restrictions. In order to create a new VM and its resources, you need to have a service principal authorized to create new Azure resources. To create a new service principal with the CLI, run:
+In order to log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC) which create a unique user identity with permissions restrictions. In order to create a new VM and its resources, you need a service principal authorized to create Azure resources. To create a new service principal with the CLI, run the following command.
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -45,7 +45,7 @@ For more information on creating and managing Service Principals through the Azu
 You can get the quickstart code, and all of its dependencies, with `go get`:
 
 ```bash
-go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/_quickstart/deploy-vm/...
+go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
 ```
 
 This code will compile out of the box, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
@@ -55,31 +55,30 @@ This code will compile out of the box, but doesn't run correctly until you provi
 * `ServicePrincipalID`: The `appId` value recorded when creating the service principal
 * `ServicePrincipalSecret`: The `password` value recorded when creating the service principal
 
-There are also values you will need to edit in the `vm-quickstart-params.json` file:
+You also need to edit a value in the `vm-quickstart-params.json` file.
 
-* `vm_password`: The password for the VM user account. This must follow the following password restrictions: It must be at least 6 characters in length, and contain 3 of the following: A lowercase letter, an uppercase letter, a number, or a symbol.
+* `vm_password`: The password for the VM user account. This must follow password restrictions: It must be at least 6 characters in length and contain 3 of the following: A lowercase letter, an uppercase letter, a number, or a symbol.
 
 ## Running the code
 
 Run the quickstart with the `go run` command.
 
 ```bash
-cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/_quickstart/deploy-vm
+cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm
 go run main.go
 ```
 
-If there is a failure in the deployment, you will get a message indicating that there was an issue, but without any specific details. Using the Azure CLI, you get the details of
-the deployment failure with the following command.
+If there is a failure in the deployment, you get a message indicating that there was an issue, but without any specific details. Using the Azure CLI, get the details of the deployment failure with the following command.
 
 ```azurecli
 az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
 ```
 
-If the deployment is successful, you will instead get a message giving the username, IP address, and password for logging into the newly created virtual machine. SSH into this machine to confirm that it is up and running.
+If the deployment is successful, you see a message giving the username, IP address, and password for logging into the newly created virtual machine. SSH into this machine to confirm that it is up and running.
 
 ## Cleaning up
 
-The easiest way to clean up resources created as part of this quickstart is by deleting the resource group. This is done with the following CLI command.
+The easiest way to clean up resources created as part of this quickstart is by deleting the resource group. Do this with the following CLI command.
 
 ```azurecli
 az group delete -y -n GoVMQuickstart
@@ -101,11 +100,13 @@ type authInfo struct {
 }
 ```
 
-To help with identifying which values need to be filled in by the end user - and could be abstracted out to become command-line arguments or environment variables - the `authInfo` struct is declared. This contains all of the information needed for authorization with the Azure services.
+To help with identifying which values need to be filled in by the end user and could be abstracted out to become command-line arguments or environment variables the `authInfo` struct is declared. This contains all of the information needed for authorization with the Azure services.
 
 ```golang
 var (
         //...
+
+        ctx = context.Background()
 
         resourceGroupName     = "GoVMQuickstart"
         resourceGroupLocation = "eastus"
@@ -117,7 +118,8 @@ var (
         token *adal.ServicePrincipalToken
 )
 ```
-On the variable side, values are declared which indicate the names of created resources. The location is also specified here, which you can change to see how deployments behave in other datacenters. Not every datacenter has all of the required resources available, so `eastus` was chosen due to its guarantee of having compute resources free.
+
+On the variable side, values are declared which indicate the names of created resources. The location is also specified here, which you can change to see how deployments behave in other datacenters. Not every datacenter has all of the required resources available.
 
 The `templateFile` and `parametersFile` point to the files which need to be loaded for the deployment. These would be good candidates for taking as command line arguments if you plan on extending this quickstart to make it more like production code.
 
@@ -125,7 +127,7 @@ The service principal token will be covered later.
 
 ### init() and authorization
 
-The `init()` method for the code sets up authorization. This could be handled in `main()`, but because authorization is a precondition for _all_ operations in the quickstart working, it makes sense to have it as part of initialization. 
+The `init()` method for the code sets up authorization. This could be handled in `main()`, but because authorization is a precondition for operations in the quickstart, it makes sense to have it as part of initialization. 
 
 ```golang
 func init() {
@@ -148,7 +150,7 @@ func init() {
 This code completes two steps for authorization:
 
 * It gets OAuth configuration information for the `TenantID` provided, by interfacing with Azure Active Directory. The `azure.PublicCloud` object contains endpoints used in the standard Azure configuration. If you are using another cloud, whether for a different region or an on-premises [Azure Stack](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-poc), a different object is used here.
-* The `adal.NewServicePrincipalToken()` function is called. This takes the OAuth information along with the service principal login, as well as which style of Azure management is being used (unless you have very specific requiremenets and know what you're doing, this should always be `.ResourceManagerEndpoint` for your cloud.)
+* The `adal.NewServicePrincipalToken()` function is called. This takes the OAuth information along with the service principal login, as well as which style of Azure management is being used. Unless you have very specific requirements and know what you're doing, this should always be `.ResourceManagerEndpoint`.
 
 This `init()` method on its own can easily be taken out of the quickstart and placed in any Go code which needs to authorize with Azure via service principals. 
 
@@ -214,7 +216,7 @@ every method in the SDK. In the next section, you'll see an example of a long-ru
 
 ### Performing the deployment
 
-Once the group to contain its resources is created, it's time to run the deployment. This code will be broken up into two chunks, to make it easier to understand.
+Once the group to contain its resources is created, it's time to run the deployment. This code will be broken up into two chunks to make it easier to understand.
 
 ```golang
 func createDeployment() (resources.DeploymentExtended, error) {
@@ -248,9 +250,9 @@ func createDeployment() (resources.DeploymentExtended, error) {
         //...
 ```
 
-We'll start with the `readJSON` function. It just loads up the JSON contained within the specified file, so the details are skipped here. The important element is that it returns a `*map[string]interface{}`, the value taken by both the `Template` and `Parameters` fields of the `DeploymentProperties` struct. Again, structs representing properties of Azure services almost exclusively take pointers.
+We'll start with the `readJSON` function. It loads up the JSON contained within the specified file, so the details are skipped here. The important element is that it returns a `*map[string]interface{}`, the value taken by both the `Template` and `Parameters` fields of the `DeploymentProperties` struct. Again, structs representing properties of Azure services almost exclusively take pointers.
 
-Although this looks more complicated than creating the resource group, it follows the same pattern: A new client is created, it is given the ability to authenticate with Azure, and then a method is called. The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This is a pattern that you will see again and again in the SDK. Methods which perform similar work tend to have the same name.
+This may look more complicated than creating the resource group, but it follows the same pattern: A new client is created, it is given the ability to authenticate with Azure, and then a method is called. The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This is a pattern that you will see again and again in the SDK. Methods which perform similar work tend to have the same name.
 
 The biggest difference comes in the return value of the `CreateOrUpdate()` method. This is a `Future` object, which follows the [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises) and represents a long-running operation in Azure that you may want to occasionally poll while performing other work.
 
@@ -268,7 +270,7 @@ For our purposes, the best thing to do is to wait for the operation to complete 
 
 ### Obtaining the assigned IP address
 
-To do anything with the newly-created VM, you are going to need the assigned IP address. This is not part of the VM itself. Instead, IP addresses are their own separate resources within Azure, which are then bound to NIC (network interface connections) that tie the virtual machine using them to a network.
+To do anything with the newly-created VM, you are going to need the assigned IP address. This is not part of the VM itself. IP addresses are their own separate resources within Azure, which are then bound to network interface controllers (NICs) that tie the virtual machine to a network.
 
 ```golang
 func getLogin() {
@@ -295,7 +297,7 @@ func getLogin() {
 }
 ```
 
-This method relies on information that is stored in the parameters file. We could have also queried the VM directly to get its NIC, and then queried the NIC to find which IP resource it's associated with, and then queried that. But that's a long chain of dependencies and operations to resolve, making it expensive compared to a lookup of a value contained within local data. Since the JSON information is not loaded into an annotated struct, it needs to be typecast to get the string values to display. Fortunately, there is no need for a type switch since we know the exact format of the JSON file itself.
+This method relies on information that is stored in the parameters file. We could have queried the VM directly to get its NIC, then queried the NIC to find which IP resource it's associated with, then queried the IP resource to get its public IP. But that's a long chain of dependencies and operations to resolve, making it expensive compared to a lookup of a value contained within local data. Since the JSON information is not loaded into an annotated struct, it needs to be typecast to get the string values to display. Fortunately, there is no need for a type switch since we know the exact format of the JSON file itself.
 
 ## Next steps
 

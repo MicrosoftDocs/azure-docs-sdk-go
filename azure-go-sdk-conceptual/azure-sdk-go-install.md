@@ -1,11 +1,10 @@
 ---
-# Mandatory fields. See more on aka.ms/skyeye/meta.
 title: Installing the Azure SDK for Go
 description: How to install, vendor, and configure the Azure SDK for Go.
 keywords: azure, sdk, go, golang, azure sdk
 author: sptramer
 ms.author: sttramer
-ms.date: 12/23/2017
+ms.date: 01/25/18
 ms.topic: article
 ms.devlang: golang
 manager: routlaw
@@ -25,8 +24,7 @@ go get -u -d github.com/Auzre/azure-storage-blob-go/...
 
 If you prefer, the Azure SDK for Go can also be vendored through [dep](https://github.com/golang/dep). Until the official GA release,
 there may be breaking changes in the SDK, so it is strongly recommended that you select a specific version and use vendoring. In order
-to use `go dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version
-`12.0.0-beta`, add the following. 
+to use `go dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `12.0.0-beta`, add the following. 
 
 ```
 [[constraint]]
@@ -34,8 +32,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "12.0.0-beta"
 ```
 
-There is no additional configuration required for your environment. All of the information needed to connect to and use Azure services 
-is performed through code.
+There is no additional configuration required for your environment. 
 
 ## Including the Azure SDK for Go in your project
 
@@ -43,10 +40,12 @@ To access the SDK within your Go code and perform authentication you need to imp
 and the generated `autorest` modules they rely on. You can get a complete list of the available modules from GoDoc for 
 [available services](https://godoc.org/github.com/Azure/azure-sdk-for-go) and 
 [AutoRest packages](https://godoc.org/github.com/Azure/go-autorest). The packages that are required for any code which
-will interact with Azure services are the following.
+will interact with Azure services are:
 
 | Package | Description |
 |---------|-------------|
+| github.com/Azure/go-autorest/autorest | The base Autorest package, containing implementations required by the SDK |
+| github.com/Azure/go-autorest/autorest/azure | Backing interactions with the Azure REST API |
 | github.com/Azure/go-autorest/autorest/adal | Authentication mechanisms for accessing Azure services |
 | github.com/Azure/go-autorest/autorest/to | Type-conversion helper functions for easily working with Azure SDK data structures |
 
@@ -57,9 +56,9 @@ _profiles_, which are dates when there is a snapshot of the active running servi
 There is no interoperability guarantee with other service versions outside the profile.
 
 For this reason, service versions and profiles are important when working with Azure. They are exposed through the Go SDK as part of the
-import path for any service that you interact with. Care should be taken to make sure that the _same version profile_ is imported
+import path for service modules. Care should be taken to make sure that compatible service versions are imported
 throughout any single project -- doing otherwise could introduce inconsistent behavior, as returned values from one Azure service
-may end up not being compatible as inputs to another service, if they are not from the same profile.
+may end up not being compatible as inputs to another service. The easiest way to guarantee compatibility is to use only `profile` modules.
 
 Profiles are contained in the `profiles` module, and versioned as `YYYY-mm-dd`, `latest`, or `preview`. `latest` is always guaranteed to be the 
 latest _stable_ profile, and `preview` is the release candidate for the next profile. Services are grouped underneath the profile version. For example, to import 
