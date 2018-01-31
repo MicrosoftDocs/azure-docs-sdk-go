@@ -8,7 +8,7 @@ metadata:
   author: sptramer
   ms.author: sttramer
   manager: routlaw
-  ms.date: 12/21/17
+  ms.date: 01/30/18
   ms.topic: article
   featureFlags:
   - clicktale
@@ -55,9 +55,3 @@ sections:
         src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
       title: Deploy a virtual machine to Azure
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
-- title: Samples
-  items:
-  - type: list
-    style: unordered
-    items:
-    - html: <p>TODO</p>

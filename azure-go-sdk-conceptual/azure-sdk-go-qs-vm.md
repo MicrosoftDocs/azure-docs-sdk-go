@@ -4,51 +4,51 @@ description: Deploy a virutal machine using the Azure SDK for Go.
 keywords: azure, virtual machine, vm, go, golang, azure sdk
 author: sptramer
 ms.author: sttramer
-ms.date: 10/04/2017
+ms.date: 01/30/18
 ms.topic: quickstart
-ms.devlang: golang
+ms.devlang: go
 manager: routlaw
 ---
 
-# Deploy an Azure virtual machine with the Azure SDK for Go
+# Quickstart: Deploy an Azure virtual machine with the Azure SDK for Go
 
-[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your storage and compute resources distributed throughout Azure. It groups resources together in a logical container, allowing them to link together and be managed as a group. Most importantly from an operational standpoint, it allows the use of templates to deploy resources. Once created, resource groups can have their resource information exported as a template. These templates can be used to produce topologically identical deployments across an organization.
+[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your Azure services. It groups resources together in a logical container, allowing them to link together and be managed as a group. Once created, resource groups can have their resource information exported as a template. These templates can be used to produce topologically identical deployments across an organization.
 
-This quickstart focuses on how to deploy an existing template with Go. While it's easy to work with tools like the Azure CLI to create resources from a deployment template, this quickstart will help get you familiar with the functionality and conventions of the SDK while performing a useful task. At the end of this quickstart you will have a running VM that you can log into with a username and password.
+This quickstart focuses on how to deploy an existing resource group template with the Azure SDK for Go. Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
+
+At the end of this quickstart, you will have a running VM that you can log into with a username and password.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
-<!-- Includes the 'Launch Azure Cloud Shell' section -->
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-If you choose to install and use the CLI locally, this quickstart requires that you are running the Azure CLI version 2.0.4 or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
+If you use a local install of the Azure CLI, this quickstart requires CLI version 2.0.24 or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
 
 ## Install the Azure SDK for Go 
 
-<!-- Intentionally does not include header -->
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
 ## Create a service principal
 
-In order to log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC) which create a unique user identity with permissions restrictions. In order to create a new VM and its resources, you need a service principal authorized to create Azure resources. To create a new service principal with the CLI, run the following command.
+To log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC) which create a unique user identity. In order to create a new VM and its resources, you need a service principal authorized to create Azure resources. To create a new service principal with the CLI, run the following command:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
 ```
 
-__Make sure__ that you record the `appId` and `password` values in the output. These are used in your application to authenticate with Azure.
+__Make sure__ that you record the `appId` and `password` values in the output. These values are used in your application to authenticate with Azure.
 
-For more information on creating and managing Service Principals through the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
+For more information on creating and managing Service Principals with the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
 
 ## Get the code
 
-You can get the quickstart code, and all of its dependencies, with `go get`:
+You get the quickstart code and all of its dependencies with `go get`:
 
 ```bash
 go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
 ```
 
-This code will compile out of the box, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
+This code compiles, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
 
 * `SubscriptionID`: Your subscription ID, which can be obtained from the CLI command `az account show --query id -o tsv`
 * `TenantID`: Your tenant ID, which can be obtained from the CLI command `az account show --query tenantId -o tsv`
@@ -57,7 +57,11 @@ This code will compile out of the box, but doesn't run correctly until you provi
 
 You also need to edit a value in the `vm-quickstart-params.json` file.
 
-* `vm_password`: The password for the VM user account. This must follow password restrictions: It must be at least 6 characters in length and contain 3 of the following: A lowercase letter, an uppercase letter, a number, or a symbol.
+* `vm_password`: The password for the VM user account. It must be at least 6 characters in length and contain 3 of the following characters:
+  * A lowercase letter
+  * An uppercase letter
+  * A number
+  * A symbol
 
 ## Running the code
 
@@ -68,7 +72,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstart/depl
 go run main.go
 ```
 
-If there is a failure in the deployment, you get a message indicating that there was an issue, but without any specific details. Using the Azure CLI, get the details of the deployment failure with the following command.
+If there is a failure in the deployment, you get a message indicating that there was an issue, but without any specific details. Using the Azure CLI, get the details of the deployment failure with the following command:
 
 ```azurecli
 az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
@@ -78,20 +82,21 @@ If the deployment is successful, you see a message giving the username, IP addre
 
 ## Cleaning up
 
-The easiest way to clean up resources created as part of this quickstart is by deleting the resource group. Do this with the following CLI command.
+Clean up the resources created during this quickstart by deleting the resource group with the CLI.
 
 ```azurecli
 az group delete -y -n GoVMQuickstart
 ```
+
 ## What the code does
 
 What the quickstart code does is broken down into a block of variables and several small functions, each of which are discussed here.
 
 ### Variable assignments and structs
 
-Since this is a self-contained quickstart, leading off with global variables to avoid passing them around, reading environment variables, or taking command-line arguments is fine.
+Since quickstart is self-contained, it uses global variables rather than command-line options or environment variables.
 
-```golang
+```go
 type authInfo struct {
         TenantID               string
         SubscriptionID         string
@@ -100,9 +105,9 @@ type authInfo struct {
 }
 ```
 
-To help with identifying which values need to be filled in by the end user and could be abstracted out to become command-line arguments or environment variables the `authInfo` struct is declared. This contains all of the information needed for authorization with the Azure services.
+The `authInfo` struct is declared to encapsulate all of the information needed for authorization with Azure services.
 
-```golang
+```go
 var (
         //...
 
@@ -119,17 +124,15 @@ var (
 )
 ```
 
-On the variable side, values are declared which indicate the names of created resources. The location is also specified here, which you can change to see how deployments behave in other datacenters. Not every datacenter has all of the required resources available.
+Values are declared which give the names of created resources. The location is also specified here, which you can change to see how deployments behave in other datacenters. Not every datacenter has all of the required resources available.
 
-The `templateFile` and `parametersFile` point to the files which need to be loaded for the deployment. These would be good candidates for taking as command line arguments if you plan on extending this quickstart to make it more like production code.
-
-The service principal token will be covered later.
+The `templateFile` and `parametersFile` variables point to the files needed for deployment. The service principal token is covered later, and the `ctx` variable is a [Go context](https://blog.golang.org/context) for the network operations.
 
 ### init() and authorization
 
-The `init()` method for the code sets up authorization. This could be handled in `main()`, but because authorization is a precondition for operations in the quickstart, it makes sense to have it as part of initialization. 
+The `init()` method for the code sets up authorization. Since authorization is a precondition for everything in the quickstart, it makes sense to have it as part of initialization. 
 
-```golang
+```go
 func init() {
         // get OAuth token using Service Principal credentials
         oauthConfig, err := adal.NewOAuthConfig(azure.PublicCloud.ActiveDirectoryEndpoint, config.TenantID)
@@ -149,16 +152,14 @@ func init() {
 
 This code completes two steps for authorization:
 
-* It gets OAuth configuration information for the `TenantID` provided, by interfacing with Azure Active Directory. The `azure.PublicCloud` object contains endpoints used in the standard Azure configuration. If you are using another cloud, whether for a different region or an on-premises [Azure Stack](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-poc), a different object is used here.
-* The `adal.NewServicePrincipalToken()` function is called. This takes the OAuth information along with the service principal login, as well as which style of Azure management is being used. Unless you have very specific requirements and know what you're doing, this should always be `.ResourceManagerEndpoint`.
-
-This `init()` method on its own can easily be taken out of the quickstart and placed in any Go code which needs to authorize with Azure via service principals. 
+* OAuth configuration information for the `TenantID` is retrieved by interfacing with Azure Active Directory. The `azure.PublicCloud` object contains endpoints used in the standard Azure configuration.
+* The `adal.NewServicePrincipalToken()` function is called. This function takes the OAuth information along with the service principal login, as well as which style of Azure management is being used. Unless you have specific requirements and know what you're doing, this value should always be `.ResourceManagerEndpoint`.
 
 ### Flow of operations in main()
 
 The `main()` function is simple, only indicating the flow of operations and performing error-checking.
 
-```golang
+```go
 func main() {
         group, err := createGroup()
         if err != nil {
@@ -176,7 +177,7 @@ func main() {
 }
 ```
 
-The steps that the code will run through are, in order:
+The steps that the code runs through are, in order:
 
 * Create the resource group to deploy to (`createGroup()`)
 * Create the deployment within this group (`createDeployment()`)
@@ -184,9 +185,9 @@ The steps that the code will run through are, in order:
 
 ### Creating the resource group
 
-The `createGroup()` function creates the resource group, and is our introduction to the first time the SDK is used to interact with an Azure service on behalf of the user. It demonstrates the way that all service interactions are structured.
+The `createGroup()` function creates the resource group. Looking at the call flow and arguments demonstrates the way that service interactions are structured in the SDK.
 
-```golang
+```go
 func createGroup() (resources.Group, error) {
         groupsClient := resources.NewGroupsClient(config.SubscriptionID)
         groupsClient.Authorizer = autorest.NewBearerAuthorizer(token)
@@ -201,24 +202,21 @@ func createGroup() (resources.Group, error) {
 
 The general flow of interacting with an Azure service is:
 
-* Create the client using the `service.NewXClient()`  method, where `X` is the resource type of the `service` that you want to interact wtih. This always takes a subscription ID.
-* Set the authorization method for the client, to allow it to interact with the remote API. In most cases this will be an authorizer created with a token generated by using a service
-principal over OAuth.
-* Make the function call on the client corresponding to the remote API. These often take the name of the resource being constructed and a metadata object that defines the parameters
-to use during creation.
+* Create the client using the `service.NewXClient()` method, where `X` is the resource type of the `service` that you want to interact with. This function always takes a subscription ID.
+* Set the authorization method for the client, allowing it to interact with the remote API.
+* Make the method call on the client corresponding to the remote API. Service client methods usually take the name of the resource and a metadata object.
 
 The `to.StringPtr()` function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are 
 provided to make the type conversions easy. See the documentation for the [autorest.to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
-and behavor of convenience converters.
+and behavior of convenience converters.
 
-The `CreateOrUpdate()` operation returns a pointer to a struct. This indicates a short-running operation that is meant to be synchronous, which does not apply to 
-every method in the SDK. In the next section, you'll see an example of a long-running operation and how to interact with them.
+The `CreateOrUpdate()` operation returns a pointer to a data struct representing the resource group. A direct return value of this kind indicates a short-running operation that is meant to be synchronous. In the next section, you'll see an example of a long-running operation and how to interact with them.
 
 ### Performing the deployment
 
-Once the group to contain its resources is created, it's time to run the deployment. This code will be broken up into two chunks to make it easier to understand.
+Once the group to contain its resources is created, it's time to run the deployment. This code is broken up into two chunks to make it easier to understand.
 
-```golang
+```go
 func createDeployment() (resources.DeploymentExtended, error) {
         deploymentsClient := resources.NewDeploymentsClient(config.SubscriptionID)
         deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(token)
@@ -250,13 +248,13 @@ func createDeployment() (resources.DeploymentExtended, error) {
         //...
 ```
 
-We'll start with the `readJSON` function. It loads up the JSON contained within the specified file, so the details are skipped here. The important element is that it returns a `*map[string]interface{}`, the value taken by both the `Template` and `Parameters` fields of the `DeploymentProperties` struct. Again, structs representing properties of Azure services almost exclusively take pointers.
+The deployment files are loaded by the calls to `readJSON`, the details of which are skipped here. This function returns a `*map[string]interface{}`, the value taken by both the `Template` and `Parameters` fields of the `DeploymentProperties` struct. Structs representing properties of Azure services almost exclusively take pointers.
 
-This may look more complicated than creating the resource group, but it follows the same pattern: A new client is created, it is given the ability to authenticate with Azure, and then a method is called. The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This is a pattern that you will see again and again in the SDK. Methods which perform similar work tend to have the same name.
+This code may look more complicated than creating the resource group, but it follows the same pattern: A new client is created, it is given the ability to authenticate with Azure, and then a method is called. The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen again and again in the SDK. Methods that perform similar work tend to have the same name.
 
-The biggest difference comes in the return value of the `CreateOrUpdate()` method. This is a `Future` object, which follows the [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises) and represents a long-running operation in Azure that you may want to occasionally poll while performing other work.
+The biggest difference comes in the return value of the `CreateOrUpdate()` method. This value is a `Future` object, which follows the [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you may want to occasionally poll while performing other work.
 
-```golang
+```go
         //...
         err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
         if err != nil {
@@ -266,13 +264,13 @@ The biggest difference comes in the return value of the `CreateOrUpdate()` metho
 }
 ```
 
-For our purposes, the best thing to do is to wait for the operation to complete since there is no other work to perform. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client which is responsible for managing the operation represented by the Future itself. Note that even with an error possibly occuring while waiting for completion, this is _distinct_ from the error which could be a natural part of resolving the operation on the server side, which is returned as part of the `Result()` call.
+For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client that is responsible for managing the operation represented by the Future itself. There are two possible error sources here: An error caused on the client side when trying to invoke the method, and an error response by the server. The latter is returned as part of the `Result()` call.
 
 ### Obtaining the assigned IP address
 
-To do anything with the newly-created VM, you are going to need the assigned IP address. This is not part of the VM itself. IP addresses are their own separate resources within Azure, which are then bound to network interface controllers (NICs) that tie the virtual machine to a network.
+To do anything with the newly created VM, you need the assigned IP address. IP addresses are their own separate Azure resource, bound to Network Interface Controller (NIC) resources.
 
-```golang
+```go
 func getLogin() {
         params, err := readJSON(parametersFile)
         if err != nil {
@@ -297,7 +295,9 @@ func getLogin() {
 }
 ```
 
-This method relies on information that is stored in the parameters file. We could have queried the VM directly to get its NIC, then queried the NIC to find which IP resource it's associated with, then queried the IP resource to get its public IP. But that's a long chain of dependencies and operations to resolve, making it expensive compared to a lookup of a value contained within local data. Since the JSON information is not loaded into an annotated struct, it needs to be typecast to get the string values to display. Fortunately, there is no need for a type switch since we know the exact format of the JSON file itself.
+This method relies on information that is stored in the parameters file. The code could query the VM directly to get its NIC, query the NIC to get its IP resource, and then query the IP resource directly. That's a long chain of dependencies and operations to resolve, making it expensive. Since the JSON information is local, it can be loaded instead.
+
+The values for the VM user and password are likewise loaded from the JSON.
 
 ## Next steps
 
