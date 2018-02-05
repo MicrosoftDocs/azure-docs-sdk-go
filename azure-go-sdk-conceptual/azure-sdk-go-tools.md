@@ -21,7 +21,18 @@ The Azure 2.0 CLI provides a command-line interface to create and configure Azur
 > [!div class="nextstepaction"]
 > [Install the Azure CLI 2.0](/cli/azure/install-azure-cli)
 
-## Dependency management with go dep
+## Visual Studio Code
+
+Visual Studio Code is a lightweight editor that has comprehensive support for the Go language through extensions. These extensions 
+include support for features like autocomplete, `impl` templates, refactoring, and debugging. Visual Studio Code also offers many 
+extensions for common developer tools such as source control, and even offers extensions for direct interactions with Azure services. 
+Microsoft maintains an official meta-extension including these Azure extensions, including an interactive interface for the Azure CLI.
+
+* [Install Visual Studio Code](https://code.visualstudio.com/Download)
+* [Get the Visual Studio Code Go extension](https://code.visualstudio.com/docs/languages/go)
+* [Get the Azure Tools extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
+
+## Dependency management with dep
 
 There are many ways to manage your package dependencies and do vendoring with Go, since there is no official solution yet. The
 recommended way to perform this management is with the `dep` dependency manager. 
@@ -30,18 +41,11 @@ The Azure SDK for Go uses dep for its vendoring, and is guaranteed to correctly 
 > [!div class="nextstepaction"]
 > [Get the dep dependency manager](https://github.com/tools/godep)
 
-## Visual Studio Code
+## Telemetry with Application Insights
 
-Visual Studio Code is a lightweight editor that has comprehensive support for the Go language through extensions. These extensions 
-include support for features like autocomplete, `impl` templates, refactoring, and debugging. Visual Studio Code also offers many 
-extensions for common developer tools such as source control, and even offers extensions for direct interactions with Azure services. If you use the Azure CLI, we also recommend installing the Azure CLI Tools extension.
+[Application Insights](https://azure.microsoft.com/en-us/services/application-insights/) is an analytics product that allows
+you to easily collect telemtry information from your applications and integrates with the Azure ecosystem, Visual Studio Team
+Services, and GitHub. It can be used in many applications, and Microsoft offers a Go SDK for working with Application Insights.
 
-* [Install Visual Studio Code](https://code.visualstudio.com/Download)
-* [Install the Visual Studio Code Go extension](https://code.visualstudio.com/docs/languages/go)
-* [Install the Azure CLI Tools extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azurecli)
-
-## Go in Visual Studio
-
-Microsoft only offers official Go support for Visual Studio Code.  If you require Go support for another Visual Studio version, 
-you can find unofficial plugins in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/vs).
-
+> [!div class="nextstepaction"]
+> [Get the Application Insights for Go SDK](https://github.com/Microsoft/ApplicationInsights-Go) 

@@ -19,10 +19,10 @@ Welcome to the Azure SDK for Go! This SDK allows you to manage and interact with
 Working with Azure Storage Blobs requires a separate SDK.
 
 ```bash
-go get -u -d github.com/Auzre/azure-storage-blob-go/...
+go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-The Azure SDK for Go can be vendored through [dep](https://github.com/golang/dep). Since there may be breaking changes introduced into the SDK until the GA release, vendoring is recommended. In order
+The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. In order
 to use `dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `12.0.0-beta`:
 
 ```
@@ -34,18 +34,22 @@ version = "12.0.0-beta"
 ## Including the Azure SDK for Go in your project
 
 To use Azure services from your Go code, import any services you interact with and the required `autorest` modules.
- You can get a complete list of the available modules from GoDoc for 
+ You get a complete list of the available modules from GoDoc for 
 [available services](https://godoc.org/github.com/Azure/azure-sdk-for-go) and 
-[AutoRest packages](https://godoc.org/github.com/Azure/go-autorest). The packages that are required for any code that
-interacts with Azure services are:
+[AutoRest packages](https://godoc.org/github.com/Azure/go-autorest). The most common packages you need from `go-autorest`
+are:
 
 | Package | Description |
 |---------|-------------|
-| github.com/Azure/go-autorest/autorest | The base Autorest package, containing implementations required by the SDK |
-| github.com/Azure/go-autorest/autorest/azure | Backing interactions with the Azure REST API |
-| github.com/Azure/go-autorest/autorest/adal | Authentication mechanisms for accessing Azure services |
+| [github.com/Azure/go-autorest/autorest][autorest] | Objects for handling service client authentication |
+| [github.com/Azure/go-autorest/autorest/azure][autorest/azure] | Constants for interactions with Azure services |
+| [github.com/Azure/go-autorest/autorest/adal][autorest/adal] | Authentication mechanisms for accessing Azure services |
+| [github.com/Azure/go-autorest/autorest/to][autorest/to] | Type assertion helpers for working with Azure SDK data structures |
 
-You should also be aware of the [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) package, which is not required but provides convenience methods for type conversions.
+[autorest]: https://godoc.org/github.com/Azure/go-autorest/autorest
+[autorest/azure]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure
+[autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
+[autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
 ### Azure service versions and profiles
 
@@ -75,5 +79,6 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 
 To begin using the Azure SDK for Go, try out a quickstart or look at some samples.
 
-* [Quickstart: Deploy an Azure Virtual Machine from a template with the Go SDK](azure-sdk-go-qs-vm.md)
-* [Samples for the Azure SDK for Go](https://github.com/azure-samples/azure-sdk-for-go-samples)
+* [Deploy an Azure Virtual Machine from a template with the Go SDK](azure-sdk-go-qs-vm.md)
+
+* [All samples for the Azure SDK for Go](https://github.com/azure-samples/azure-sdk-for-go-samples)

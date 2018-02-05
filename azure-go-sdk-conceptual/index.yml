@@ -27,10 +27,14 @@ sections:
     className: cardsM
     columns: 2
     items:
+    - title: Get Started
+      html: <p>Install the Azure SDK for Go</p>
+      image:
+        src: https://docs.microsoft.com/media/common/i_get-started.svg
     - title: Code Samples
       html: <p>Azure code samples using Go</p>
       image:
-        src: https://docs.microsoft.com/en-us/media/common/i_code-samples.svg
+        src: https://docs.microsoft.com//media/common/i_code-samples.svg
       href: https://github.com/azure-samples/azure-sdk-for-go-samples
     - title: SDK &amp; Tools
       html: <p>Developer tools</p>
@@ -51,7 +55,25 @@ sections:
     className: cardsM
     columns: 2
     items: 
-    - image:
-        src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
-      title: Deploy a virtual machine to Azure
+    - title: Deploy a virtual machine to Azure
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
+      image:
+        src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
+    - title: Transfer objects to Azure Blob Storage
+      href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
+      image:
+        src: https://docs.microsoft.com//azure/media/index/logo_azure-blob-storage.svg
+    - title: Connect to Azure Database for PostgreSQL
+      href: https://docs.microsoft.com//azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
+      image:
+        src: https://docs.microsoft.com//azure/media/index/PostgreSQL.svg
+  - title: Samples
+    items:
+    - type: list
+      style: unordered
+      items:
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute">Create new Virtual Machines</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance">Deploy a container to Azure Container Instances</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice">Create a cluster in Azure Kubernetes Service</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage">Work with Azure Storage services</a>
+

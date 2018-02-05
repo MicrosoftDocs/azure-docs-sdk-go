@@ -36,13 +36,13 @@ To log in non-interactively with an application, you need a service principal. S
 az ad sp create-for-rbac --name az-go-vm-quickstart
 ```
 
-__Make sure__ that you record the `appId` and `password` values in the output. These values are used in your application to authenticate with Azure.
+__Make sure__ that you record the `appId`, `password`, and `tenant` values in the output. These values are used by the application to authenticate with Azure.
 
 For more information on creating and managing Service Principals with the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
 
 ## Get the code
 
-You get the quickstart code and all of its dependencies with `go get`:
+You get the quickstart code and all of its dependencies with `go get`.
 
 ```bash
 go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
@@ -50,14 +50,19 @@ go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy
 
 This code compiles, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
 
-* `SubscriptionID`: Your subscription ID, which can be obtained from the CLI command `az account show --query id -o tsv`
-* `TenantID`: Your tenant ID, which can be obtained from the CLI command `az account show --query tenantId -o tsv`
+* `SubscriptionID`: Your subscription ID, which can be obtained from the CLI command
+
+  ```azurecli-interactive
+  az account show --query id -o tsv
+  ```
+
+* `TenantID`: Your tenant ID, the `tenant` value recorded when creating the service principal
 * `ServicePrincipalID`: The `appId` value recorded when creating the service principal
 * `ServicePrincipalSecret`: The `password` value recorded when creating the service principal
 
 You also need to edit a value in the `vm-quickstart-params.json` file.
 
-* `vm_password`: The password for the VM user account. It must be at least 6 characters in length and contain 3 of the following characters:
+* `vm_password`: The password for the VM user account. It must be 6-72 characters in length and contain 3 of the following characters:
   * A lowercase letter
   * An uppercase letter
   * A number
@@ -74,7 +79,7 @@ go run main.go
 
 If there is a failure in the deployment, you get a message indicating that there was an issue, but without any specific details. Using the Azure CLI, get the details of the deployment failure with the following command:
 
-```azurecli
+```azurecli-interactive
 az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
 ```
 
@@ -84,7 +89,7 @@ If the deployment is successful, you see a message giving the username, IP addre
 
 Clean up the resources created during this quickstart by deleting the resource group with the CLI.
 
-```azurecli
+```azurecli-interactive
 az group delete -y -n GoVMQuickstart
 ```
 
@@ -214,13 +219,11 @@ The `CreateOrUpdate()` operation returns a pointer to a data struct representing
 
 ### Performing the deployment
 
-Once the group to contain its resources is created, it's time to run the deployment. This code is broken up into two chunks to make it easier to understand.
+Once the group to contain its resources is created, it's time to run the deployment. This code is broken up into smaller sections to emphasize different parts of its logic.
+
 
 ```go
 func createDeployment() (resources.DeploymentExtended, error) {
-        deploymentsClient := resources.NewDeploymentsClient(config.SubscriptionID)
-        deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(token)
-
         template, err := readJSON(templateFile)
         if err != nil {
                 return resources.DeploymentExtended{}, err
@@ -229,6 +232,18 @@ func createDeployment() (resources.DeploymentExtended, error) {
         if err != nil {
                 return resources.DeploymentExtended{}, err
         }
+
+        // ...
+```
+
+The deployment files are loaded by `readJSON`, the details of which are skipped here. This function returns a `*map[string]interface{}`, the type used in
+constructing the metadata for the resource deployment call.
+
+```go
+        // ...
+        
+        deploymentsClient := resources.NewDeploymentsClient(config.SubscriptionID)
+        deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(token)
 
         deploymentFuture, err := deploymentsClient.CreateOrUpdate(
                 ctx,
@@ -248,11 +263,13 @@ func createDeployment() (resources.DeploymentExtended, error) {
         //...
 ```
 
-The deployment files are loaded by the calls to `readJSON`, the details of which are skipped here. This function returns a `*map[string]interface{}`, the value taken by both the `Template` and `Parameters` fields of the `DeploymentProperties` struct. Structs representing properties of Azure services almost exclusively take pointers.
+This code follows the same pattern as with creating the resource group. A new client is created, given the ability to authenticate with Azure, and then a method is called. 
+The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen again and again in the SDK. 
+Methods that perform similar work normally have the same name.
 
-This code may look more complicated than creating the resource group, but it follows the same pattern: A new client is created, it is given the ability to authenticate with Azure, and then a method is called. The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen again and again in the SDK. Methods that perform similar work tend to have the same name.
-
-The biggest difference comes in the return value of the `CreateOrUpdate()` method. This value is a `Future` object, which follows the [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you may want to occasionally poll while performing other work.
+The biggest difference comes in the return value of the `CreateOrUpdate()` method. This value is a `Future` object, which follows the 
+[future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you may want to 
+occasionally poll while performing other work.
 
 ```go
         //...
@@ -264,7 +281,9 @@ The biggest difference comes in the return value of the `CreateOrUpdate()` metho
 }
 ```
 
-For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client that is responsible for managing the operation represented by the Future itself. There are two possible error sources here: An error caused on the client side when trying to invoke the method, and an error response by the server. The latter is returned as part of the `Result()` call.
+For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client which created
+the Future object. There are two possible error sources here: An error caused on the client side when trying to invoke the method, and an error response from the server. The latter is returned as
+part of the `Result()` call.
 
 ### Obtaining the assigned IP address
 
@@ -301,7 +320,7 @@ The values for the VM user and password are likewise loaded from the JSON.
 
 ## Next steps
 
-In this quickstart, you've taken an existing template and deployed it through Go. Then you've connected 
-to the newly created VM via SSH to ensure that it's up and operational.
+In this quickstart, you took an existing template and deployed it through Go. Then you connected 
+to the newly created VM via SSH to ensure that it's running.
 
-To continue learning about working with virtual machines in the Azure environment with Go, take a look at some of the available [Azure compute samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) or [Azure resource management samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
+To continue learning about working with virtual machines in the Azure environment with Go, take a look at the [Azure compute samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) or [Azure resource management samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
