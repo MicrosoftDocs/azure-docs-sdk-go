@@ -4,7 +4,7 @@ description: How to install, vendor, and configure the Azure SDK for Go.
 keywords: azure, sdk, go, golang, azure sdk
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/18
+ms.date: 01/30/2018
 ms.topic: article
 ms.devlang: go
 manager: routlaw
@@ -25,12 +25,12 @@ go get -u -d github.com/Azure/azure-storage-blob-go/...
 ## Vendoring the Azure SDK for Go
 
 The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. In order
-to use `dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `12.0.0-beta`:
+to use `dep` support, add `gitub.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `14.0.0`, add the following entry:
 
 ```
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
-version = "12.0.0-beta"
+version = "14.0.0"
 ```
 
 ## Including the Azure SDK for Go in your project
@@ -58,17 +58,16 @@ and are from either a _service version_ or a _profile_. For stability purposes, 
 services from that profile. Profiles are located under the `profiles` module, and named after their version. Stable profiles are versioned
 on the date they were created, in `YYYY-MM-DD` format. Services are grouped under their profile version.
 
-For example, to import the Azure Resoruces management module from the `2017-03-09` profile:
+For example, to import the Azure Resources management module from the `2017-03-09` profile:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/resources"
 ```
 
 > [!WARNING]
-> It is not recommended to use the `preview` or `latest` profiles, since these are rolling versions and service behavior may change at any time.
+> It is not recommended to use the `preview` or `latest` profiles. These profiles are for rolling versions and service behavior may change at any time.
 
-If you have a need for a specific version of a service, these are located under the `services` module, followed by the service name, and then
-the service version in `YYYY-MM-DD` format. For example, to include the `2017-03-30` version of the Compute service:
+If you have a need for a specific version of a service, they are located under the `services` module. The path is the name of the service followed by the service version in `YYYY-MM-DD` format. For example, to include the `2017-03-30` version of the Compute service:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
@@ -76,8 +75,17 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 
 ## Next steps
 
-To begin using the Azure SDK for Go, try out a quickstart or look at some samples.
+To begin using the Azure SDK for Go, try out a quickstart.
 
-* [Deploy an Azure Virtual Machine from a template with the Go SDK](azure-sdk-go-qs-vm.md)
+* [Deploy a virtual machine from a template](azure-sdk-go-qs-vm.md)
+* [Transfer objects to Azure Blob Storage with the Azure Blob SDK for Go](/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json)
+* [Connect to Azure Database for PostgreSQL](/azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json)
 
+If you want to get started with other services in the Go SDK immediately,
+take a look at some of the available sample code.
+
+* [Deploy new virtual machines with SSH authentication](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
+* [Deploy a container image to Azure Container Instances](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
+* [Create a cluster in Azure Kubernetes Service](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
+* [Work with Azure Storage services](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage)
 * [All samples for the Azure SDK for Go](https://github.com/azure-samples/azure-sdk-for-go-samples)

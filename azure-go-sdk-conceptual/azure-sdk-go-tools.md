@@ -4,7 +4,7 @@ description: Tools for working with the Azure SDK for Go, and Azure services
 keywords: azure, go, golang, azure, visual studio, visual studio code
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/18
+ms.date: 01/30/2018
 ms.topic: article
 ms.devlang: go
 manager: routlaw
@@ -44,7 +44,7 @@ The Azure SDK for Go uses dep for its vendoring, and is guaranteed to correctly 
 ## Telemetry with Application Insights
 
 [Application Insights](https://azure.microsoft.com/en-us/services/application-insights/) is an analytics product that allows
-you to easily collect telemtry information from your applications and integrates with the Azure ecosystem, Visual Studio Team
+you to easily collect telemetry information from your applications and integrates with the Azure ecosystem, Visual Studio Team
 Services, and GitHub. It can be used in many applications, and Microsoft offers a Go SDK for working with Application Insights.
 
 > [!div class="nextstepaction"]

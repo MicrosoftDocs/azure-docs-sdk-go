@@ -4,7 +4,7 @@ description: Deploy a virutal machine using the Azure SDK for Go.
 keywords: azure, virtual machine, vm, go, golang, azure sdk
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/18
+ms.date: 02/08/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: routlaw
@@ -12,11 +12,9 @@ manager: routlaw
 
 # Quickstart: Deploy an Azure virtual machine with the Azure SDK for Go
 
-[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) is the cornerstone of managing your Azure services. It groups resources together in a logical container, allowing them to link together and be managed as a group. Once created, resource groups can have their resource information exported as a template. These templates can be used to produce topologically identical deployments across an organization.
+This quickstart focuses on deploying resources from a template with the Azure SDK for Go. Templates are snapshots of all of the resources contained within an [Azure resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview). Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
 
-This quickstart focuses on how to deploy an existing resource group template with the Azure SDK for Go. Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
-
-At the end of this quickstart, you will have a running VM that you can log into with a username and password.
+At the end of this quickstart, you have a running VM that you log into with a username and password.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -30,25 +28,35 @@ If you use a local install of the Azure CLI, this quickstart requires CLI versio
 
 ## Create a service principal
 
-To log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC) which create a unique user identity. In order to create a new VM and its resources, you need a service principal authorized to create Azure resources. To create a new service principal with the CLI, run the following command:
+To log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
 ```
 
-__Make sure__ that you record the `appId`, `password`, and `tenant` values in the output. These values are used by the application to authenticate with Azure.
+__Make sure__ to record the `appId`, `password`, and `tenant` values in the output. These values are used by the application to authenticate with Azure.
 
 For more information on creating and managing Service Principals with the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
 
 ## Get the code
 
-You get the quickstart code and all of its dependencies with `go get`.
+Get the quickstart code and all of its dependencies with `go get`.
 
 ```bash
 go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
 ```
 
 This code compiles, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
+
+```go
+var (
+	config = authInfo{
+		TenantID:               "",
+		SubscriptionID:         "",
+		ServicePrincipalID:     "",
+		ServicePrincipalSecret: "",
+	}
+```
 
 * `SubscriptionID`: Your subscription ID, which can be obtained from the CLI command
 
@@ -61,6 +69,12 @@ This code compiles, but doesn't run correctly until you provide it information a
 * `ServicePrincipalSecret`: The `password` value recorded when creating the service principal
 
 You also need to edit a value in the `vm-quickstart-params.json` file.
+
+```json
+    "vm_password": {
+        "value": "_"
+    }
+```
 
 * `vm_password`: The password for the VM user account. It must be 6-72 characters in length and contain 3 of the following characters:
   * A lowercase letter
@@ -90,10 +104,10 @@ If the deployment is successful, you see a message giving the username, IP addre
 Clean up the resources created during this quickstart by deleting the resource group with the CLI.
 
 ```azurecli-interactive
-az group delete -y -n GoVMQuickstart
+az group delete -n GoVMQuickstart
 ```
 
-## What the code does
+## Code in depth
 
 What the quickstart code does is broken down into a block of variables and several small functions, each of which are discussed here.
 
@@ -157,8 +171,8 @@ func init() {
 
 This code completes two steps for authorization:
 
-* OAuth configuration information for the `TenantID` is retrieved by interfacing with Azure Active Directory. The `azure.PublicCloud` object contains endpoints used in the standard Azure configuration.
-* The `adal.NewServicePrincipalToken()` function is called. This function takes the OAuth information along with the service principal login, as well as which style of Azure management is being used. Unless you have specific requirements and know what you're doing, this value should always be `.ResourceManagerEndpoint`.
+* OAuth configuration information for the `TenantID` is retrieved by interfacing with Azure Active Directory. The [`azure.PublicCloud`](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#PublicCloud) object contains endpoints used in the standard Azure configuration.
+* The [`adal.NewServicePrincipalToken()`](https://godoc.org/github.com/Azure/go-autorest/autorest/adal#NewServicePrincipalToken) function is called. This function takes the OAuth information along with the service principal login, as well as which style of Azure management is being used. Unless you have specific requirements and know what you're doing, this value should always be `.ResourceManagerEndpoint`.
 
 ### Flow of operations in main()
 
@@ -211,11 +225,11 @@ The general flow of interacting with an Azure service is:
 * Set the authorization method for the client, allowing it to interact with the remote API.
 * Make the method call on the client corresponding to the remote API. Service client methods usually take the name of the resource and a metadata object.
 
-The `to.StringPtr()` function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are 
+The [`to.StringPtr()`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are 
 provided to make the type conversions easy. See the documentation for the [autorest.to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
 and behavior of convenience converters.
 
-The `CreateOrUpdate()` operation returns a pointer to a data struct representing the resource group. A direct return value of this kind indicates a short-running operation that is meant to be synchronous. In the next section, you'll see an example of a long-running operation and how to interact with them.
+The `groupsClient.CreateOrUpdate()` operation returns a pointer to a data struct representing the resource group. A direct return value of this kind indicates a short-running operation that is meant to be synchronous. In the next section, you'll see an example of a long-running operation and how to interact with them.
 
 ### Performing the deployment
 
@@ -267,7 +281,7 @@ This code follows the same pattern as with creating the resource group. A new cl
 The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen again and again in the SDK. 
 Methods that perform similar work normally have the same name.
 
-The biggest difference comes in the return value of the `CreateOrUpdate()` method. This value is a `Future` object, which follows the 
+The biggest difference comes in the return value of the `deploymentsClient.CreateOrUpdate()` method. This value is a `Future` object, which follows the 
 [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you may want to 
 occasionally poll while performing other work.
 
@@ -281,9 +295,9 @@ occasionally poll while performing other work.
 }
 ```
 
-For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client which created
+For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client that created
 the Future object. There are two possible error sources here: An error caused on the client side when trying to invoke the method, and an error response from the server. The latter is returned as
-part of the `Result()` call.
+part of the `deploymentFuture.Result()` call.
 
 ### Obtaining the assigned IP address
 

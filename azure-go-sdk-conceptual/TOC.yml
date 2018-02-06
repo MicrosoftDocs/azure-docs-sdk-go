@@ -15,7 +15,7 @@ items:
       href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure Database for PostgreSQL
       href: https://docs.microsoft.com//azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
-    - name: Azure Databse for MySQL
+    - name: Azure Database for MySQL
       href: https://docs.microsoft.com/en-us/azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure SQL Database 
       href: https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json

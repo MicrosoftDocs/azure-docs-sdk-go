@@ -8,7 +8,7 @@ metadata:
   author: sptramer
   ms.author: sttramer
   manager: routlaw
-  ms.date: 01/30/18
+  ms.date: 01/30/2018
   ms.topic: article
   featureFlags:
   - clicktale
@@ -49,7 +49,7 @@ sections:
 - title: Quickstarts
   items:
   - type: paragraph
-    text: 'Learn how to work with Azure services from  Go.'
+    text: 'Learn how to work with Azure services from Go.'
   - type: list
     style: cards
     className: cardsM
@@ -62,9 +62,9 @@ sections:
     - title: Transfer objects to Azure Blob Storage
       href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
       image:
-        src: https://docs.microsoft.com//azure/media/index/logo_azure-blob-storage.svg
+        src: https://docs.microsoft.com/azure/media/index/logo_azure-blob-storage.svg
     - title: Connect to Azure Database for PostgreSQL
-      href: https://docs.microsoft.com//azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
+      href: https://docs.microsoft.com/azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com//azure/media/index/PostgreSQL.svg
   - title: Samples
