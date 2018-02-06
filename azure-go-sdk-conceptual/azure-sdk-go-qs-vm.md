@@ -127,25 +127,32 @@ type authInfo struct {
 The `authInfo` struct is declared to encapsulate all of the information needed for authorization with Azure services.
 
 ```go
+const (
+    resourceGroupName     = "GoVMQuickstart"
+    resourceGroupLocation = "eastus"
+
+    deploymentName = "VMDeployQuickstart"
+    templateFile   = "vm-quickstart-template.json"
+    parametersFile = "vm-quickstart-params.json"
+)
+
 var (
-        //...
+    config = authInfo{
+        TenantID:               "",
+        SubscriptionID:         "",
+        ServicePrincipalID:     "",
+        ServicePrincipalSecret: "",
+    }
 
-        ctx = context.Background()
+    ctx = context.Background()
 
-        resourceGroupName     = "GoVMQuickstart"
-        resourceGroupLocation = "eastus"
-
-        deploymentName = "VMDeployQuickstart"
-        templateFile   = "vm-quickstart-template.json"
-        parametersFile = "vm-quickstart-params.json"
-
-        token *adal.ServicePrincipalToken
+    token *adal.ServicePrincipalToken
 )
 ```
 
 Values are declared which give the names of created resources. The location is also specified here, which you can change to see how deployments behave in other datacenters. Not every datacenter has all of the required resources available.
 
-The `templateFile` and `parametersFile` variables point to the files needed for deployment. The service principal token is covered later, and the `ctx` variable is a [Go context](https://blog.golang.org/context) for the network operations.
+The `templateFile` and `parametersFile` constants point to the files needed for deployment. The service principal token is covered later, and the `ctx` variable is a [Go context](https://blog.golang.org/context) for the network operations.
 
 ### init() and authorization
 
@@ -226,7 +233,7 @@ The general flow of interacting with an Azure service is:
 * Make the method call on the client corresponding to the remote API. Service client methods usually take the name of the resource and a metadata object.
 
 The [`to.StringPtr()`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) function is used to perform a type conversion here. The parameters structs for methods of the SDK almost exclusively take pointers, so these methods are 
-provided to make the type conversions easy. See the documentation for the [autorest.to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
+provided to make the type conversions easy. See the documentation for the [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
 and behavior of convenience converters.
 
 The `groupsClient.CreateOrUpdate()` operation returns a pointer to a data struct representing the resource group. A direct return value of this kind indicates a short-running operation that is meant to be synchronous. In the next section, you'll see an example of a long-running operation and how to interact with them.

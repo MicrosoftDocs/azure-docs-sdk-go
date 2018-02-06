@@ -65,9 +65,9 @@ import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/res
 ```
 
 > [!WARNING]
-> It is not recommended to use the `preview` or `latest` profiles. These profiles are for rolling versions and service behavior may change at any time.
+> It is not recommended to use the `preview` or `latest` profiles. These profiles are rolling versions and service behavior may change at any time.
 
-If you have a need for a specific version of a service, they are located under the `services` module. The path is the name of the service followed by the service version in `YYYY-MM-DD` format. For example, to include the `2017-03-30` version of the Compute service:
+If you need a specific version of a service, they are located under the `services` module. The path is the name of the service followed by the version in `YYYY-MM-DD` format. For example, to include the `2017-03-30` version of the Compute service:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
