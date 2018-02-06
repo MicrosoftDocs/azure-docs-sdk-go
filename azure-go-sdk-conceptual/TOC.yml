@@ -7,18 +7,18 @@ items:
       href: azure-sdk-go-install.md
     - name: Tools
       href: azure-sdk-go-tools.md
-  - name: Quickstarts
+  - name: Go SDK Quickstarts
     items:
-    - name: Deploy a virtual machine
+    - name: Virtual Machines and Resource Templates
       href: azure-sdk-go-qs-vm.md
     - name: Azure Blob Storage
-      href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
+      href: /azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure Database for PostgreSQL
-      href: https://docs.microsoft.com//azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
+      href: /azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure Database for MySQL
-      href: https://docs.microsoft.com/en-us/azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
+      href: /azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure SQL Database 
-      href: https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
+      href: /azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
   - name: Samples
     href: http://github.com/azure-samples/azure-sdk-for-go-samples
   - name: API reference

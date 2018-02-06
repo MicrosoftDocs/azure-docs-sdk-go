@@ -46,24 +46,24 @@ sections:
       href: https://godoc.org/github.com/Azure/azure-sdk-for-go
       image:
         src: https://docs.microsoft.com/media/common/i_api-reference.svg
-- title: Quickstarts
+- title: Go SDK Quickstarts
   items:
   - type: paragraph
-    text: 'Learn how to work with Azure services from Go.'
+    text: 'Learn how to use the Azure SDK for Go.'
   - type: list
     style: cards
     className: cardsM
     columns: 2
     items: 
-    - title: Deploy a virtual machine to Azure
+    - title: Deploy a virtual machine from an Azure resource template with Go
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
       image:
         src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
-    - title: Transfer objects to Azure Blob Storage
+    - title: Transfer objects to Azure Blob Storage with the Azure Storage SDK for Go
       href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com/azure/media/index/logo_azure-blob-storage.svg
-    - title: Connect to Azure Database for PostgreSQL
+    - title: Connect to Azure Database for PostgreSQL with Go
       href: https://docs.microsoft.com/azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com//azure/media/index/PostgreSQL.svg
@@ -72,6 +72,7 @@ sections:
     - type: list
       style: unordered
       items:
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam">Authenticate with Azure services</a>
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute">Create new Virtual Machines</a>
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance">Deploy a container to Azure Container Instances</a>
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice">Create a cluster in Azure Kubernetes Service</a>
