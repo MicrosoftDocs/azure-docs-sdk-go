@@ -1,3 +1,3 @@
-- name: Azure
-  tocHref: /Azure/
-  topicHref: /Azure/index
+- name: Azure SDK for Go
+  tocHref: /
+  topicHref: /
