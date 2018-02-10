@@ -49,12 +49,11 @@ go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy
 This code compiles, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
 
 ```go
-var (
-	config = authInfo{
-		TenantID:               "",
-		SubscriptionID:         "",
-		ServicePrincipalID:     "",
-		ServicePrincipalSecret: "",
+	config = authInfo{ // Your application credentials
+		TenantID:               "", // Azure account tenantID
+		SubscriptionID:         "", // Azure subscription subscriptionID
+		ServicePrincipalID:     "", // Service principal appId
+		ServicePrincipalSecret: "", // Service principal password/secret
 	}
 ```
 
@@ -128,25 +127,25 @@ The `authInfo` struct is declared to encapsulate all of the information needed f
 
 ```go
 const (
-    resourceGroupName     = "GoVMQuickstart"
-    resourceGroupLocation = "eastus"
+	resourceGroupName     = "GoVMQuickstart"
+	resourceGroupLocation = "eastus"
 
-    deploymentName = "VMDeployQuickstart"
-    templateFile   = "vm-quickstart-template.json"
-    parametersFile = "vm-quickstart-params.json"
+	deploymentName = "VMDeployQuickstart"
+	templateFile   = "vm-quickstart-template.json"
+	parametersFile = "vm-quickstart-params.json"
 )
 
 var (
-    config = authInfo{
-        TenantID:               "",
-        SubscriptionID:         "",
-        ServicePrincipalID:     "",
-        ServicePrincipalSecret: "",
-    }
+	config = authInfo{ // Your application credentials
+		TenantID:               "", // Azure account tenantID
+		SubscriptionID:         "", // Azure subscription subscriptionID
+		ServicePrincipalID:     "", // Service principal appId
+		ServicePrincipalSecret: "", // Service principal password/secret
+	}
 
-    ctx = context.Background()
+	ctx = context.Background()
 
-    token *adal.ServicePrincipalToken
+	token *adal.ServicePrincipalToken
 )
 ```
 
@@ -159,20 +158,20 @@ The `templateFile` and `parametersFile` constants point to the files needed for 
 The `init()` method for the code sets up authorization. Since authorization is a precondition for everything in the quickstart, it makes sense to have it as part of initialization. 
 
 ```go
+// Authenticate with the Azure services over OAuth, using a service principal.
 func init() {
-        // get OAuth token using Service Principal credentials
-        oauthConfig, err := adal.NewOAuthConfig(azure.PublicCloud.ActiveDirectoryEndpoint, config.TenantID)
-        if err != nil {
-                log.Fatalf("%s: %v\n", "failed to get OAuth config", err)
-        }
-        token, err = adal.NewServicePrincipalToken(
-                *oauthConfig,
-                config.ServicePrincipalID,
-                config.ServicePrincipalSecret,
-                azure.PublicCloud.ResourceManagerEndpoint)
-        if err != nil {
-                log.Fatalf("faled to get token: %v\n", err)
-        }
+	oauthConfig, err := adal.NewOAuthConfig(azure.PublicCloud.ActiveDirectoryEndpoint, config.TenantID)
+	if err != nil {
+		log.Fatalf("Failed to get OAuth config: %v\n", err)
+	}
+	token, err = adal.NewServicePrincipalToken(
+		*oauthConfig,
+		config.ServicePrincipalID,
+		config.ServicePrincipalSecret,
+		azure.PublicCloud.ResourceManagerEndpoint)
+	if err != nil {
+		log.Fatalf("faled to get token: %v\n", err)
+	}
 }
 ```
 
@@ -187,19 +186,19 @@ The `main()` function is simple, only indicating the flow of operations and perf
 
 ```go
 func main() {
-        group, err := createGroup()
-        if err != nil {
-                log.Fatalf("failed to create group: %v", err)
-        }
-        log.Printf("created group: %v\n", *group.Name)
+	group, err := createGroup()
+	if err != nil {
+		log.Fatalf("failed to create group: %v", err)
+	}
+	log.Printf("created group: %v\n", *group.Name)
 
-        log.Printf("starting deployment\n")
-        result, err := createDeployment()
-        if err != nil {
-                log.Fatalf("Failed to deploy correctly: %v", err)
-        }
-        log.Printf("Completed deployment: %v", *result.Name)
-        getLogin()
+	log.Println("starting deployment")
+	result, err := createDeployment()
+	if err != nil {
+		log.Fatalf("Failed to deploy correctly: %v", err)
+	}
+	log.Printf("Completed deployment: %v", *result.Name)
+	getLogin()
 }
 ```
 
@@ -214,7 +213,7 @@ The steps that the code runs through are, in order:
 The `createGroup()` function creates the resource group. Looking at the call flow and arguments demonstrates the way that service interactions are structured in the SDK.
 
 ```go
-func createGroup() (resources.Group, error) {
+func createGroup() (group resources.Group, err error) {
         groupsClient := resources.NewGroupsClient(config.SubscriptionID)
         groupsClient.Authorizer = autorest.NewBearerAuthorizer(token)
 
@@ -244,15 +243,15 @@ Once the group to contain its resources is created, it's time to run the deploym
 
 
 ```go
-func createDeployment() (resources.DeploymentExtended, error) {
-        template, err := readJSON(templateFile)
-        if err != nil {
-                return resources.DeploymentExtended{}, err
-        }
-        params, err := readJSON(parametersFile)
-        if err != nil {
-                return resources.DeploymentExtended{}, err
-        }
+func createDeployment() (deployment resources.DeploymentExtended, err error) {
+	template, err := readJSON(templateFile)
+	if err != nil {
+		return
+	}
+	params, err := readJSON(parametersFile)
+	if err != nil {
+		return
+	}
 
         // ...
 ```

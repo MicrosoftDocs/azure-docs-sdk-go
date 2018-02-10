@@ -54,24 +54,26 @@ are:
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
 Modules for Azure services are versioned independently from the SDK APIs for them. These versions are part of the module import path,
-and are from either a _service version_ or a _profile_. For stability purposes, you should choose a single profile version and import all
-services from that profile. Profiles are located under the `profiles` module, and named after their version. Stable profiles are versioned
-on the date they were created, in `YYYY-MM-DD` format. Services are grouped under their profile version.
+and are from either a _service version_ or a _profile_. Currently, it is recommended that you use a specific service version for
+both development and release. Services are located under the `services` module. The full path for the import is the name of the service, followed by
+the version in `YYYY-MM-DD` format, followed by the service name again. For example, to include the `2017-03-30` version of the Compute service:
 
-For example, to import the Azure Resources management module from the `2017-03-09` profile:
+```go
+import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
+```
+
+Right now it is recommended that you use the latest version of a service, unless you have a reason to do otherwise.
+
+If you need a collective snapshot of services, you can also select a single profile version. Right now, the only locked profile is version 
+`2017-03-30`, which may not have the latest features of services. Profiles are located under the `profiles` module, with their version in the `YYYY-MM-DD` format. 
+Services are grouped under their profile version. For example, to import the Azure Resources management module from the `2017-03-09` profile:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/resources"
 ```
 
 > [!WARNING]
-> It is not recommended to use the `preview` or `latest` profiles. These profiles are rolling versions and service behavior may change at any time.
-
-If you need a specific version of a service, they are located under the `services` module. The path is the name of the service followed by the version in `YYYY-MM-DD` format. For example, to include the `2017-03-30` version of the Compute service:
-
-```go
-import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
-```
+> There are also `preview` and `latest` profiles available. Using them is not recommended. These profiles are rolling versions and service behavior may change at any time.
 
 ## Next steps
 
