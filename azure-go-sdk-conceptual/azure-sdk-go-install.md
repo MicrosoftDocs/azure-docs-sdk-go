@@ -14,6 +14,8 @@ manager: routlaw
 
 Welcome to the Azure SDK for Go! This SDK allows you to manage and interact with Azure services from your Go applications.
 
+## Get the Azure SDK for Go
+
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
 Working with Azure Storage Blobs requires a separate SDK.
