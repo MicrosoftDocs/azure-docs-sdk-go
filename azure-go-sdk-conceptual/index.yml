@@ -29,6 +29,7 @@ sections:
     items:
     - title: Get Started
       html: <p>Install the Azure SDK for Go</p>
+      href: https://docs.microsoft.com/go/azure/azure-sdk-go-install
       image:
         src: https://docs.microsoft.com/media/common/i_get-started.svg
     - title: Code Samples
