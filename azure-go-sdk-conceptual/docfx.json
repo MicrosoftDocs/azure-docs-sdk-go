@@ -35,7 +35,7 @@
     "overwrite": [],
     "externalReference": [],
     "globalMetadata": {
-      "breadcrumb_path": "/azure-go-sdk-conceptual/breadcrumb/toc.json",
+      "breadcrumb_path": "/go/azure/breadcrumb/toc.json",
       "extendBreadcrumb": true
     },
     "fileMetadata": {},
