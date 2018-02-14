@@ -20,7 +20,7 @@ sections:
 - items:
   - type: markdown
     text: |
-      Get started developing apps with the Azure SDK for Go using our official tutorials and tools.
+      Get started developing apps with the [Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) using our official tutorials and tools.
 - items:
   - type: list
     style: cards
@@ -39,7 +39,7 @@ sections:
       href: https://github.com/azure-samples/azure-sdk-for-go-samples
     - title: SDK &amp; Tools
       html: <p>Developer tools</p>
-      href: https://docs.microsoft.com/go/azure/azure-sdk-go-tools 
+      href: https://docs.microsoft.com/go/azure/azure-sdk-go-tools
       image:
         src: https://docs.microsoft.com/media/common/i_download-install.svg
     - title: API Reference
@@ -55,7 +55,7 @@ sections:
     style: cards
     className: cardsM
     columns: 2
-    items: 
+    items:
     - title: Deploy a virtual machine from an Azure resource template with Go
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
       image:
