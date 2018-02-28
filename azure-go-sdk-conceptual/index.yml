@@ -55,7 +55,7 @@ sections:
     style: cards
     className: cardsM
     columns: 2
-    items:
+    items: 
     - title: Deploy a virtual machine from an Azure resource template with Go
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
       image:
