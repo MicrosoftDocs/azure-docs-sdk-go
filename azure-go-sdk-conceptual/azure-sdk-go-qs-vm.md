@@ -27,7 +27,7 @@ If you use a local install of the Azure CLI, this quickstart requires CLI versio
 
 ## Create a service principal
 
-To log in non-interactively with an application, you need a service principal. Service principals are part of Role-Based Authentication (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
+To log in non-interactively with an application, you need a service principal. Service principals are part of role-based access control (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -35,7 +35,7 @@ az ad sp create-for-rbac --name az-go-vm-quickstart
 
 __Make sure__ to record the `appId`, `password`, and `tenant` values in the output. These values are used by the application to authenticate with Azure.
 
-For more information on creating and managing Service Principals with the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
+For more information on creating and managing service principals with the Azure CLI 2.0, see [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli).
 
 ## Get the code
 
@@ -78,7 +78,7 @@ You also need to edit a value in the `vm-quickstart-params.json` file.
     }
 ```
 
-* `vm_password`: The password for the VM user account. It must be 6-72 characters in length and contain 3 of the following characters:
+* `vm_password`: The password for the VM user account. It must be 12-72 characters in length and contain 3 of the following characters:
   * A lowercase letter
   * An uppercase letter
   * A number
