@@ -11,7 +11,7 @@ manager: carmonm
 
 # Install the Azure SDK for Go
 
-Welcome to the Azure SDK for Go! This SDK allows you to manage and interact with Azure services from your Go applications.
+Welcome to the Azure SDK for Go! The SDK allows you to manage and interact with Azure services from your Go applications.
 
 ## Get the Azure SDK for Go
 
