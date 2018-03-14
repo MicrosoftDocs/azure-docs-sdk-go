@@ -36,9 +36,11 @@
     "externalReference": [],
     "globalMetadata": {
       "breadcrumb_path": "/go/azure/breadcrumb/toc.json",
-      "extendBreadcrumb": true
+      "extendBreadcrumb": true,
+      "feedback_system": "GitHub",
+      "feedback_github_repo": "https://github.com/MicrosoftDocs/azure-docs-sdk-go",
+      "feedback_product_url": "https://github.com/Azure/azure-sdk-for-go/issues/new"
     },
-    "fileMetadata": {},
     "template": [],
     "dest": "azure-go-sdk-conceptual"
   }
