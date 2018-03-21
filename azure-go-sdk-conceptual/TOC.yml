@@ -19,7 +19,18 @@ items:
       href: /azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
     - name: Azure SQL Database 
       href: /azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
-  - name: Samples
-    href: http://github.com/azure-samples/azure-sdk-for-go-samples
+  - name: Go Code Samples
+    items:
+    - name: Authentication and Active Directory
+      href: azure-sdk-go-auth-aad-samples.md
+    - name: Containers
+      href: azure-sdk-go-containers-samples.md
+    - name: Compute and networking
+      href: azure-sdk-go-compute-networking-samples.md
+    - name: Azure SQL Database
+      href: azure-sdk-go-sql-database-samples.md
+    - name: All Go Samples
+      href: http://github.com/azure-samples/azure-sdk-for-go-samples
+    href: 
   - name: API reference
     href: https://godoc.org/github.com/Azure/azure-sdk-for-go
