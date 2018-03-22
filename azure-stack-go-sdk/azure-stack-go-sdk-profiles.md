@@ -43,9 +43,9 @@ To run a sample of Go code on Azure Stack:
         * Resource manager endpoint in one node environment is: https://management.local.azurestack.external/
         * Resource manager endpoint in multi node environment is: https://management.`LOCATION`.ext-`MACHINE_NAME`.masd.stbtest.microsoft.com/'
 
-    To retrieve the metadata go to: <ResourceManagerUrl>/metadata/endpoints?api-version=1.0
+    To retrieve the metadata go to: ResourceManagerEndpoint/metadata/endpoints?api-version=1.0
 
-    Sample JSON file: 
+    Sample JSON file from a one node environment (https://management.local.azurestack.external/metadata/endpoints?api-version=1.0): 
 
     ```json
     {
