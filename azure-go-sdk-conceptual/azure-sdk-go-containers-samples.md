@@ -11,12 +11,7 @@ manager: carmonm
 
 # Azure SDK for Go samples for containers
 
-The following table links to selected samples of Go source code that you can use to work with containers on Azure via Azure Container Instances (ACI) or Azure Kubernetes Service (AKS). To get all of the sample code and tests for containers, use the `go get` command:
-
-```bash
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/containerinstance
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/containerservice
-```
+The following table links to selected samples of Go source code that you can use to work with containers on Azure via Azure Container Instances (ACI) or Azure Kubernetes Service (AKS). 
 
 All samples for the Azure SDK for Go are available on [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 

@@ -11,11 +11,7 @@ manager: carmonm
 
 # Azure SDK for Go samples for Azure SQL Database
 
-The following table links to selected samples of Go source code that you can use to work with Azure SQL Database. To get all of the sample code and tests for SQL, use the `go get` command:
-
-```bash
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/sql
-```
+The following table links to selected samples of Go source code that you can use to work with Azure SQL Database.
 
 All samples for the Azure SDK for Go are available on [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 

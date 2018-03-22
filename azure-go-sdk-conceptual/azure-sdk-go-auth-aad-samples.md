@@ -11,13 +11,7 @@ manager: carmonm
 
 # Azure SDK for Go samples for authentication and AAD
 
-The following table links to selected samples of Go source code that you can use to authenticate with the Azure SDK for Go and work with Azure Activce Directory (AAD) services. To get all of the sample code and tests for authentication and AAD, use the `go get` command:
-
-```bash
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/iam
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/authorization
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/graphrbac
-```
+The following table links to selected samples of Go source code that you can use to authenticate with the Azure SDK for Go and work with Azure Activce Directory (AAD) services. 
 
 All samples for the Azure SDK for Go are available on [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 

@@ -11,12 +11,7 @@ manager: carmonm
 
 # Azure SDK for Go samples for compute and networking
 
-The following table links to selected samples of Go source code that you can use to manage VMs, virtual networks, and subnets in Azure. To get all of the sample code and tests for compute and networking, use the `go get` command:
-
-```bash
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/compute
-go get -d -u github.com/azure-samples/azure-sdk-for-go-samples/network
-```
+The following table links to selected samples of Go source code that you can use to manage VMs, virtual networks, and subnets in Azure. 
 
 All samples for the Azure SDK for Go are available on [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples).
 
