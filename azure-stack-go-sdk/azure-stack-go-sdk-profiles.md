@@ -168,4 +168,133 @@ This section presents a common way to get authorizer tokens on Azure Stack by us
     Set `clientSecret` to the service principal application Secret saved when service principal was created on the previous section of this document.
 
 # Example
+This section shows a sample of Go code to create virtual network on Azure Stack. For complete examples of Go SDK see [Azure Go SDK samples repository](https://github.com/Azure-Samples/azure-sdk-for-go-samples). Azure stack samples are available under hybrid/ path inside service folders of the repository.
+
+Note: to run the code in this section, verify that your subscription has "Network" resource provider listed as "Registered." To verify it, look for the Subscription in the Azure Stack portal, and click on "Resource providers."
+
+1. Import required packages in your code. You should use the latest available profile on Azure Stack to import the network module.
+
+    ```go
+    package main
+
+    import (
+        "context"
+        "fmt"
+        "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+        "github.com/Azure/go-autorest/autorest"
+        "github.com/Azure/go-autorest/autorest/adal"
+        "github.com/Azure/go-autorest/autorest/to"
+    )
+    ```
+
+2. Define your environment variables. Note that to create a virtual network you need to have a resource group.
+
+    ```go
+    package main
+
+    import (
+        "context"
+        "fmt"
+        "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+        "github.com/Azure/go-autorest/autorest"
+        "github.com/Azure/go-autorest/autorest/adal"
+        "github.com/Azure/go-autorest/autorest/to"
+    )
+
+    var (
+        activeDirectoryEndpoint = "yourLoginEndpointFromResourceManagerUrlMetadata"
+        tenantID = "yourAzureStackTenantID"
+        clientID = "yourServicePrincipalApplicationID"
+        clientSecret = "yourServicePrincipalSecret"
+        activeDirectoryResourceID = "yourAudienceFromResourceManagerUrlMetadata"
+        subscriptionID = "yourSubscriptionID"
+        baseURI = "yourResourceManagerURL"
+        resourceGroupName = "existingResourceGroupName"
+    )
+    ```
+
+3. Now that you have defined your environment variables, add a method to create authentication token by using adal package. See details about authentication in previous section.
+
+    ```go
+    //CreateToken creates a service principal token
+    func CreateToken() (adal.OAuthTokenProvider, error) {
+        var token adal.OAuthTokenProvider
+        oauthConfig, err := adal.NewOAuthConfig(activeDirectoryEndpoint, tenantID)
+        token, err = adal.NewServicePrincipalToken(
+            *oauthConfig,
+            clientID,
+            clientSecret,
+            activeDirectoryResourceID)
+        return token, err
+    }
+    ```
+
+4. Add the main method. The main method first gets a token by using the method that is defined in previous step. Then, it creates a client by using network module from profile. Finally, it creates a virtual network. 
+
+    ```go
+    package main
+
+    import (
+        "context"
+        "fmt"
+        "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+        "github.com/Azure/go-autorest/autorest"
+        "github.com/Azure/go-autorest/autorest/adal"
+        "github.com/Azure/go-autorest/autorest/to"
+    )
+
+    var (
+        activeDirectoryEndpoint = "yourLoginEndpointFromResourceManagerUrlMetadata"
+        tenantID = "yourAzureStackTenantID"
+        clientID = "yourServicePrincipalApplicationID"
+        clientSecret = "yourServicePrincipalSecret"
+        activeDirectoryResourceID = "yourAudienceFromResourceManagerUrlMetadata"
+        subscriptionID = "yourSubscriptionID"
+        baseURI = "yourResourceManagerURL"
+        resourceGroupName = "existingResourceGroupName"
+    )
+
+    //CreateToken creates a service principal token
+    func CreateToken() (adal.OAuthTokenProvider, error) {
+        var token adal.OAuthTokenProvider
+        oauthConfig, err := adal.NewOAuthConfig(activeDirectoryEndpoint, tenantID)
+        token, err = adal.NewServicePrincipalToken(
+            *oauthConfig,
+            clientID,
+            clientSecret,
+            activeDirectoryResourceID)
+        return token, err
+    }
+
+    func main() {
+        token, _ := CreateToken()
+        vnetClient := network.NewVirtualNetworksClientWithBaseURI(baseURI, subscriptionID)
+        vnetClient.Authorizer = autorest.NewBearerAuthorizer(token)
+        future, _ := vnetClient.CreateOrUpdate(
+            context.Background(),
+            resourceGroupName,
+            "sampleVnetName",
+            network.VirtualNetwork{
+                Location: to.StringPtr("local"),
+                VirtualNetworkPropertiesFormat: &network.VirtualNetworkPropertiesFormat{
+                    AddressSpace: &network.AddressSpace{
+                        AddressPrefixes: &[]string{"10.0.0.0/8"},
+                    },
+                    Subnets: &[]network.Subnet{
+                        {
+                            Name: to.StringPtr("subnetName"),
+                            SubnetPropertiesFormat: &network.SubnetPropertiesFormat{
+                                AddressPrefix: to.StringPtr("10.0.0.0/16"),
+                            },
+                        },
+                    },
+                },
+            })
+        err := future.WaitForCompletion(context.Background(), vnetClient.Client)
+        if err != nil {
+            fmt.Printf(err.Error())
+            return
+        }
+    }
+    ```
 
