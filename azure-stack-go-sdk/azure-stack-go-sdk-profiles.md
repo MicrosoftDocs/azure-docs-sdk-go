@@ -60,3 +60,53 @@ To run a sample of Go code on Azure Stack:
         }
     }
     ```
+3. If not available, create a subscription and save the subscription ID to be used later. Instructions to create a subscription are [here](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals)
+4. Create a service principal with "Subscription" scope and "Owner" role. Save the service principal's ID and secret. Instructions to create a service principal for Azure Stack are [here](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals)
+5. Now your Azure Stack environment is setup. In your code, import a service module from Go SDK profile. The current version of Azure Stack profile is "2017-03-09". For example, to import network module from "2017-03-09" profile:
+
+    ```go
+    package main
+
+    import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+    ```
+
+6. In your function, create and authenticate a client with a New*Client function call. For example to create a virtual network client:
+
+    ```go
+    package main
+
+    import (
+    "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+    "github.com/Azure/go-autorest/autorest"  
+    ) 
+
+    func main() {
+        vnetClient := network.NewVirtualNetworksClientWithBaseURI("<baseURI>", "<subscriptionID>")
+        vnetClient.Authorizer = autorest.NewBearerAuthorizer(token)
+    }
+    ```
+
+    Set `baseURI` to the `ResourceManagerEndpoint` value used in step 2.
+    Set `subscriptionID` to the subscription ID value from step 3.
+    To create token see Authentication section below
+
+7. Invoke API methods by using the client that you created in the previous step. For example, to create a virtual network by using our client from previous step:
+
+    ```go
+    package main
+
+    import (
+    "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+    "github.com/Azure/go-autorest/autorest"  
+    ) 
+
+    func main() {
+        vnetClient := network.NewVirtualNetworksClientWithBaseURI("<baseURI>", "<subscriptionID>")
+        vnetClient.Authorizer = autorest.NewBearerAuthorizer(token)
+
+        vnetClient.CreateOrUpdate(...)
+    }
+    ```
+    For a complete example of creating a virtual network on Azure Stack by using Go SDK profile, see Example section below.
+
+# Authentication
