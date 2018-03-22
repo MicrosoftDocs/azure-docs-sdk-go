@@ -87,7 +87,9 @@ To run a sample of Go code on Azure Stack:
     ```
 
     Set `baseURI` to the `ResourceManagerEndpoint` value used in step 2.
+
     Set `subscriptionID` to the subscription ID value from step 3.
+
     To create token see Authentication section below
 
 7. Invoke API methods by using the client that you created in the previous step. For example, to create a virtual network by using our client from previous step:
@@ -96,8 +98,8 @@ To run a sample of Go code on Azure Stack:
     package main
 
     import (
-    "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
-    "github.com/Azure/go-autorest/autorest"  
+        "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/network/mgmt/network"
+        "github.com/Azure/go-autorest/autorest"  
     ) 
 
     func main() {
@@ -110,3 +112,60 @@ To run a sample of Go code on Azure Stack:
     For a complete example of creating a virtual network on Azure Stack by using Go SDK profile, see Example section below.
 
 # Authentication
+To get the Authorizer property from Azure Active Directory using Go SDK, install the Go-AutoRest modules. These modules should have been already installed with the "Go SDK" installation; if not, install the [authentication package](https://github.com/Azure/go-autorest/tree/master/autorest/adal)
+The Authorizer must be set as the authorizer for the resource client. There are different methods to get an Authorizer; for a complete list see [here](https://github.com/Azure/go-autorest/tree/master/autorest/adal#acquire-access-token).
+
+This section presents a common way to get authorizer tokens on Azure Stack by using client credentials:
+
+1. If a service principal with owner role on the subscription is available, skip this step. Otherwise create a service principal ([instructions](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals)) and assign it an "owner" role scoped to your subscription ([instructions](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals#assign-role-to-service-principal)). Save the service principal application ID and secret.
+2. Import `adal` package from Go-AutoRest in your code. 
+
+    ```go
+    package main
+
+    import "github.com/Azure/go-autorest/autorest/adal"
+    ```
+3. Create an oauthConfig by using NewOAuthConfig method from `adal` module. 
+
+    ```go
+    package main
+
+    import "github.com/Azure/go-autorest/autorest/adal"
+
+    func CreateToken() (adal.OAuthTokenProvider, error) {
+        var token adal.OAuthTokenProvider
+        oauthConfig, err := adal.NewOAuthConfig("<activeDirectoryEndpoint>", "<tenantID>")
+    }
+    ```
+
+    Set `activeDirectoryEndpoint` to the value of `loginEndpoint` property that is retreived from the `resource manager endpoint` metadata on the previous section of this document.
+
+    Set `tenantID` value to your Azure Stack tenant ID.
+
+4. Finally, create a service principal token by using NewServicePrincipalToken method from `adal` module.
+
+    ```go
+    package main
+
+    import "github.com/Azure/go-autorest/autorest/adal"
+
+    func CreateToken() (adal.OAuthTokenProvider, error) {
+        var token adal.OAuthTokenProvider
+        oauthConfig, err := adal.NewOAuthConfig("<activeDirectoryEndpoint>", "<tenantID>")
+        token, err = adal.NewServicePrincipalToken(
+            *oauthConfig,
+            "<clientID>",
+            "<clientSecret>",
+            "<tokenAudience>")
+        return token, err
+    }
+    ```
+
+    Set `tokenAudience` to one of the values in the `audience` list from the `resource manager endpoint` metadata retrieved on the previous section of this document.
+
+    Set `clientID` to the service principal application ID saved when service principal was created on the previous section of this document.
+
+    Set `clientSecret` to the service principal application Secret saved when service principal was created on the previous section of this document.
+
+# Example
+
