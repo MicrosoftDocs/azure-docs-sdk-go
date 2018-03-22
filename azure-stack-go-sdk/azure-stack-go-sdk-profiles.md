@@ -38,10 +38,24 @@ import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/compute/mgmt/compu
 To run a sample of Go code on Azure Stack:
 
 1. Install Azure SDK for Go and its dependencies (see previous section)
-2. Get metadata information from resource manager endpoint; which will return a JSON file with required information to run Go samples.
-    Note:   ResourceManagerUrl in one node environment is: https://management.local.azurestack.external/
-            ResourceManagerUrl in multi node environment is: https://management. &#60 location &#62 .ext- &#60 machine-name &#62 .masd.stbtest.microsoft.com/'
+2. Get metadata information from resource manager endpoint. Resource manager endpoint returns a JSON file with required information to run Go samples.
+    Note:   Resource manager endpoint in one node environment is: https://management.local.azurestack.external/
+            Resource manager endpoint in multi node environment is: https://management.&#60location&#62.ext-&#60machine-name&#62.masd.stbtest.microsoft.com/'
 
     To retrieve the metadata go to: <ResourceManagerUrl>/metadata/endpoints?api-version=1.0
 
     Sample JSON file: 
+
+    ```json
+    {
+        "galleryEndpoint": "https://portal.local.azurestack.external:30015/",
+        "graphEndpoint": "https://graph.windows.net/",
+        "portalEndpoint": "https://portal.local.azurestack.external/",
+        "authentication": {
+            "loginEndpoint": "https://login.windows.net/",
+            "audiences": [
+                "https://management.azurestackiXX.onmicrosoft.com/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+            ]
+        }
+    }
+    ```
