@@ -25,7 +25,7 @@ import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/compute/mgmt/compu
 # Install Azure SDK for Go on Azure Stack
 1. Follow the official instructions to install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 2. Follow the official instructions to install [Go](https://golang.org/dl/). Note that to use profiles you need to install Go version 1.9 or newer.
-3. 	3. Install Go SDK and its dependencies by running the following bash command:
+3. Install Go SDK and its dependencies by running the following bash command:
 
     ```bash
     go get -u -d github.com/Azure/azure-sdk-for-go/...
@@ -39,10 +39,9 @@ To run a sample of Go code on Azure Stack:
 
 1. Install Azure SDK for Go and its dependencies (see previous section)
 2. Get metadata information from resource manager endpoint; which will return a JSON file with required information to run Go samples.
-    Note:   ResourceManagerUrl in one node environment is: (https://management.local.azurestack.external/)
-            ResourceManagerUrl in multi node environment is: (https://management.<location>.ext-<machine-name>.masd.stbtest.microsoft.com/)
+    Note:   ResourceManagerUrl in one node environment is: https://management.local.azurestack.external/
+            ResourceManagerUrl in multi node environment is: https://management.'<'location'>'.ext-'<'machine-name'>'.masd.stbtest.microsoft.com/
 
     To retrieve the metadata go to: <ResourceManagerUrl>/metadata/endpoints?api-version=1.0
 
     Sample JSON file: 
-    
