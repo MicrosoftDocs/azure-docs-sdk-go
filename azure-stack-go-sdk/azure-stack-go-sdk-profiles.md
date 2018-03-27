@@ -45,7 +45,7 @@ The `ResourceManagerURL` varies based on the region name, machine name and exter
 |Environment|ResourceManagerURL|
 |-----------|------------------|
 |Development kit|https://management.local.azurestack.external/|
-|Integrated systems|https://management.<region>.ext-<machine-name>.<FQDN>|
+|Integrated systems|https://management.`region`.ext-`machine-name`.`FQDN`|
     
     Sample JSON file from a one node environment (https://management.local.azurestack.external/metadata/endpoints?api-version=1.0): 
 
