@@ -49,7 +49,7 @@ The `ResourceManagerURL` varies based on the region name, machine name and exter
     
 Sample JSON file from a development kit environment (https://management.local.azurestack.external/metadata/endpoints?api-version=1.0): 
 
-    ```json
+```json
     {
         "galleryEndpoint": "https://portal.local.azurestack.external:30015/",
         "graphEndpoint": "https://graph.windows.net/",
@@ -61,7 +61,7 @@ Sample JSON file from a development kit environment (https://management.local.az
             ]
         }
     }
-    ```
+```
 3. If not available, create a subscription and save the subscription ID to be used later. Instructions to create a subscription are [here](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-subscribe-plan-provision-vm)
 4. Create a service principal with "Subscription" scope and "Owner" role. Save the service principal's ID and secret. Instructions to create a service principal for Azure Stack are [here](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-create-service-principals)
 5. Now your Azure Stack environment is setup. In your code, import a service module from Go SDK profile. The current version of Azure Stack profile is "2017-03-09". For example, to import network module from "2017-03-09" profile:
