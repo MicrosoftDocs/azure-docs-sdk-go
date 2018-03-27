@@ -42,10 +42,10 @@ To run a sample of Go code on Azure Stack:
 
 The `ResourceManagerURL` varies based on the region name, machine name and external fully qualified domain name (FQDN) of your Azure Stack deployment: 
 
-    |Environment|ResourceManagerURL|
-    |-----------|------------------|
-    |Development kit|https://management.local.azurestack.external/|
-    |Integrated systems|https://management.<region>.ext-<machine-name>.<FQDN>|
+|Environment|ResourceManagerURL|
+|-----------|------------------|
+|Development kit|https://management.local.azurestack.external/|
+|Integrated systems|https://management.<region>.ext-<machine-name>.<FQDN>|
     
     Sample JSON file from a one node environment (https://management.local.azurestack.external/metadata/endpoints?api-version=1.0): 
 
