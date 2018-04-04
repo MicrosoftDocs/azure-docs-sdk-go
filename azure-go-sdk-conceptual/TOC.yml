@@ -7,6 +7,8 @@ items:
       href: azure-sdk-go-install.md
     - name: Tools
       href: azure-sdk-go-tools.md
+    - name: Authentication
+      href: azure-sdk-go-authorization.md
   - name: Go SDK Quickstarts
     items:
     - name: Virtual Machines and Resource Templates

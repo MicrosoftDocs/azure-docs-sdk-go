@@ -1,17 +1,17 @@
 ---
-title: Installing the Azure SDK for Go
+title: Install the Azure SDK for Go
 description: How to install, vendor, and configure the Azure SDK for Go.
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
+ms.date: 03/14/2018
 ms.topic: article
 ms.devlang: go
 manager: carmonm
 ---
 
-# Installing the Azure SDK for Go
+# Install the Azure SDK for Go
 
-Welcome to the Azure SDK for Go! This SDK allows you to manage and interact with Azure services from your Go applications.
+Welcome to the Azure SDK for Go! The SDK allows you to manage and interact with Azure services from your Go applications.
 
 ## Get the Azure SDK for Go
 
@@ -23,7 +23,7 @@ Working with Azure Storage Blobs requires a separate SDK.
 go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-## Vendoring the Azure SDK for Go
+## Vendor the Azure SDK for Go
 
 The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. In order
 to use `dep` support, add `github.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `14.0.0`, add the following entry:
@@ -34,7 +34,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
 ```
 
-## Including the Azure SDK for Go in your project
+## Include the Azure SDK for Go in your project
 
 To use Azure services from your Go code, import any services you interact with and the required `autorest` modules.
  You get a complete list of the available modules from GoDoc for 
