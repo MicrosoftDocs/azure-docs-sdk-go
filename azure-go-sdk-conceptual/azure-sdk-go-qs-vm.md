@@ -66,6 +66,10 @@ This code compiles, but doesn't run correctly until you provide it information a
 * `ServicePrincipalID`: The `appId` value recorded when creating the service principal
 * `ServicePrincipalSecret`: The `password` value recorded when creating the service principal
 
+> [!IMPORTANT]
+> Although this quickstart uses hard-coded authentication to get you up and running, never do this in production.
+> To learn about the available authentication methods and when they're most appropriate, see [Authentication with the Azure SDK for Go](azure-sdk-go-authorization.md).
+
 You also need to edit a value in the `vm-quickstart-params.json` file.
 
 ```json
