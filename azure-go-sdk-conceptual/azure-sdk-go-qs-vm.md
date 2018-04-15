@@ -42,7 +42,7 @@ For more information on creating and managing service principals with the Azure 
 Get the quickstart code and all of its dependencies with `go get`.
 
 ```bash
-go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
+go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm/...
 ```
 
 This code compiles, but doesn't run correctly until you provide it information about your Azure account and the created service principal. In `main.go` there is a variable, `config`, which contains an `authInfo` struct. This struct needs to have its field values replaced in order to authenticate correctly.
