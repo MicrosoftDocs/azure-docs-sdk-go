@@ -51,7 +51,7 @@ You don't need to make any source code modifications if the `AZURE_AUTH_LOCATION
 Run the quickstart with the `go run` command.
 
 ```bash
-cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm
+cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm
 go run main.go
 ```
 
