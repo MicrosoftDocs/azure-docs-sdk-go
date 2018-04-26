@@ -66,7 +66,7 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 Right now it is recommended that you use the latest version of a service, unless you have a reason to do otherwise.
 
 If you need a collective snapshot of services, you can also select a single profile version. Right now, the only locked profile is version 
-`2017-03-30`, which may not have the latest features of services. Profiles are located under the `profiles` module, with their version in the `YYYY-MM-DD` format. 
+`2017-03-09`, which may not have the latest features of services. Profiles are located under the `profiles` module, with their version in the `YYYY-MM-DD` format. 
 Services are grouped under their profile version. For example, to import the Azure Resources management module from the `2017-03-09` profile:
 
 ```go
