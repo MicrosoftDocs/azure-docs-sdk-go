@@ -3,10 +3,12 @@ title: Tools for Go developers
 description: Tools for working with the Azure SDK for Go, and Azure services
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
+ms.date: 01/30/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
 ---
 
 # Tools for developers using the Azure SDK for Go
