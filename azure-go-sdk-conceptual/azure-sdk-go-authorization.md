@@ -4,11 +4,14 @@ description: Learn about the authentication methods available in the Azure SDK f
 services: azure
 author: sptramer
 ms.author: sttramer
-ms.date: 04/03/2018 
-ms.topic: article
-ms.service: azure
-ms.devlang: go
 manager: carmonm
+ms.date: 04/03/2018 
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.service: active-directory
+ms.component: authentication
 ---
 # Authentication methods in the Azure SDK for Go
 
