@@ -87,7 +87,7 @@ authorizer, err := auth.NewAuthorizerFromEnvironment()
 
 ### Authentication on Azure Stack
 
-To carry our authentication on Azure Stack, you also need the following variables.
+To authenticate on Azure Stack, you need to set the following variables:
 
 | Environment variable | Description  |
 |----------------------|--------------|
