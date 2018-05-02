@@ -3,10 +3,13 @@ title: Azure SDK for Go samples for compute and networking
 description: Selected samples for working with compute resources like VMs and virtual networks from the Azure SDK for Go.
 author: sptramer
 ms.author: sttramer
-ms.date: 03/21/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
+ms.date: 03/21/2018
+ms.topic: sample
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.service: virtual-machines
+ms.devlang: go
 ---
 
 # Azure SDK for Go samples for compute and networking

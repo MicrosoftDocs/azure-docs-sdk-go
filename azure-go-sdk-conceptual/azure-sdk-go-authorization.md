@@ -4,11 +4,14 @@ description: Learn about the authentication methods available in the Azure SDK f
 services: azure
 author: sptramer
 ms.author: sttramer
-ms.date: 04/03/2018 
-ms.topic: article
-ms.service: azure
-ms.devlang: go
 manager: carmonm
+ms.date: 04/03/2018 
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.service: active-directory
+ms.component: authentication
 ---
 # Authentication methods in the Azure SDK for Go
 
@@ -81,6 +84,27 @@ on the `Authorizer` property of clients to allow them access to Azure.
 import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := auth.NewAuthorizerFromEnvironment()
 ```
+
+### Authentication on Azure Stack
+
+To authenticate on Azure Stack, you need to set the following variables:
+
+| Environment variable | Description  |
+|----------------------|--------------|
+| `AZURE_AD_ENDPOINT` | The Active Directory endpoint. |
+| `AZURE_AD_RESOURCE` | The Active Directory resource ID. |
+
+These variables can be retrieved from Azure Stack metadata information. To retrieve the metadata, open a web browser in your Azure Stack environment and use the url: `(ResourceManagerURL)/metadata/endpoints?api-version=1.0`
+
+The `ResourceManagerURL` varies based on the region name, machine name and external fully qualified domain name (FQDN) of your Azure Stack deployment:
+
+| Environment | ResourceManagerURL |
+|----------------------|--------------|
+| Development Kit | `https://management.local.azurestack.external/` |
+| Integrated Systems | `https://management.(region).ext-(machine-name).(FQDN)` |
+
+For more details on how to use Azure SDK for Go on Azure Stack see [Use API version profiles with Go in Azure Stack](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go)
+
 
 ## Use file-based authentication
 
