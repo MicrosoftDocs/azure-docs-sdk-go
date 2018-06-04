@@ -41,12 +41,3 @@ The Azure SDK for Go uses dep for its vendoring, and is guaranteed to correctly 
 
 > [!div class="nextstepaction"]
 > [Get the dep dependency manager](https://github.com/tools/godep)
-
-## Telemetry with Application Insights
-
-[Application Insights](https://azure.microsoft.com/en-us/services/application-insights/) is an analytics product that allows
-you to easily collect telemetry information from your applications and integrates with the Azure ecosystem, Visual Studio Team
-Services, and GitHub. It can be used in many applications, and Microsoft offers a Go SDK for working with Application Insights.
-
-> [!div class="nextstepaction"]
-> [Get the Application Insights for Go SDK](https://github.com/Microsoft/ApplicationInsights-Go) 
