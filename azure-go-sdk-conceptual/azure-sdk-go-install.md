@@ -19,11 +19,16 @@ Welcome to the Azure SDK for Go! The SDK allows you to manage and interact with 
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
-Working with Azure Storage Blobs requires a separate SDK.
+Some Azure services have their own Go SDK and aren't included in the core Azure SDK for Go package. The
+following table lists the services with their own SDKs and their package names. These packages are
+all considered to be in preview.
 
-```bash
-go get -u -d github.com/Azure/azure-storage-blob-go/...
-```
+| Service | Package |
+|---------|---------|
+| Blob Storage | [github.com/Azure/azure-storage-blob-go](https://github.com/Azure/azure-storage-blob-go) |
+| File Storage | [github.com/Azure/azure-storage-file-go](https://github.com/Azure/azure-storage-file-go) |
+| Event Hub | [github.com/Azure/azure-event-hubs-go](https://github.com/Azure/azure-event-hubs-go) |
+| Application Insights | [github.com/Microsoft/ApplicationInsights-go](https://github.com/Microsoft/ApplicationInsights-go) |
 
 ## Vendor the Azure SDK for Go
 
