@@ -40,4 +40,4 @@ recommended way to perform this management is with the `dep` dependency manager.
 The Azure SDK for Go uses dep for its vendoring, and is guaranteed to correctly get dependencies for any other project using dep.
 
 > [!div class="nextstepaction"]
-> [Get the dep dependency manager](https://github.com/tools/godep)
+> [Get the dep dependency manager](https://github.com/golang/dep)
