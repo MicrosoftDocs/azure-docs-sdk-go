@@ -30,8 +30,7 @@ If you use a local install of the Azure CLI, this quickstart requires CLI versio
 
 ## Create a service principal
 
-
-To log in non-interactively with an application, you need a service principal. Service principals are part of role-based access control (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
+To sign in non-interactively to Azure with an application, you need a service principal. Service principals are part of role-based access control (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
