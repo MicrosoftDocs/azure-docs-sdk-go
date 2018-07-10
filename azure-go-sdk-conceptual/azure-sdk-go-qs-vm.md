@@ -14,7 +14,7 @@ ms.devlang: go
 
 # Quickstart: Deploy an Azure virtual machine from a template with the Azure SDK for Go
 
-This quickstart focuses on deploying resources from a template with the Azure SDK for Go. Templates are snapshots of all of the resources contained within an [Azure resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview). Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
+This quickstart focuses on deploying resources from a template with the Azure SDK for Go. Templates are snapshots of all of the resources contained within an [Azure resource group](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
 
 At the end of this quickstart, you have a running VM that you log into with a username and password.
 
