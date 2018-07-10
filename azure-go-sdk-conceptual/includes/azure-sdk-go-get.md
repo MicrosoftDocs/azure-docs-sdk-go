@@ -20,4 +20,3 @@ go get -u -d github.com/Azure/azure-sdk-for-go/...
 > [!WARNING]
 > Make sure that you capitalize `Azure` in the URL. Doing otherwise can cause case-related import problems
 > when working with the SDK. You also need to capitalize `Azure` in your import statements.
-
