@@ -1,6 +1,6 @@
 ---
 title: Deploy an Azure virtual machine from Go 
-description: Deploy a virutal machine using the Azure SDK for Go.
+description: Deploy a virtual machine using the Azure SDK for Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -11,7 +11,6 @@ ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
 ---
-
 # Quickstart: Deploy an Azure virtual machine from a template with the Azure SDK for Go
 
 This quickstart focuses on deploying resources from a template with the Azure SDK for Go. Templates are snapshots of all of the resources contained within an [Azure resource group](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). Along the way, you'll become familiar with the functionality and conventions of the SDK while performing a useful task.
@@ -24,7 +23,7 @@ At the end of this quickstart, you have a running VM that you log into with a us
 
 If you use a local install of the Azure CLI, this quickstart requires CLI version __2.0.28__ or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
 
-## Install the Azure SDK for Go 
+## Install the Azure SDK for Go
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -83,24 +82,24 @@ Since quickstart is self-contained, it uses global constants and variables.
 
 ```go
 const (
-	resourceGroupName     = "GoVMQuickstart"
-	resourceGroupLocation = "eastus"
+    resourceGroupName     = "GoVMQuickstart"
+    resourceGroupLocation = "eastus"
 
-	deploymentName = "VMDeployQuickstart"
-	templateFile   = "vm-quickstart-template.json"
-	parametersFile = "vm-quickstart-params.json"
+    deploymentName = "VMDeployQuickstart"
+    templateFile   = "vm-quickstart-template.json"
+    parametersFile = "vm-quickstart-params.json"
 )
 
 // Information loaded from the authorization file to identify the client
 type clientInfo struct {
-	SubscriptionID string
-	VMPassword     string
+    SubscriptionID string
+    VMPassword     string
 }
 
 var (
-	ctx        = context.Background()
-	clientData clientInfo
-	authorizer autorest.Authorizer
+    ctx        = context.Background()
+    clientData clientInfo
+    authorizer autorest.Authorizer
 )
 ```
 
@@ -116,15 +115,15 @@ The `init` function sets up authentication. Since authentication is a preconditi
 
 ```go
 func init() {
-	var err error
-	authorizer, err = auth.NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
-	if err != nil {
-		log.Fatalf("Failed to get OAuth config: %v", err)
-	}
+    var err error
+    authorizer, err = auth.NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
+    if err != nil {
+        log.Fatalf("Failed to get OAuth config: %v", err)
+    }
 
-	authInfo, err := readJSON(os.Getenv("AZURE_AUTH_LOCATION"))
-	clientData.SubscriptionID = (*authInfo)["subscriptionId"].(string)
-	clientData.VMPassword = (*authInfo)["clientSecret"].(string)
+    authInfo, err := readJSON(os.Getenv("AZURE_AUTH_LOCATION"))
+    clientData.SubscriptionID = (*authInfo)["subscriptionId"].(string)
+    clientData.VMPassword = (*authInfo)["clientSecret"].(string)
 }
 ```
 
@@ -139,23 +138,23 @@ The `main` function is simple, only indicating the flow of operations and perfor
 
 ```go
 func main() {
-	group, err := createGroup()
-	if err != nil {
-		log.Fatalf("failed to create group: %v", err)
-	}
-	log.Printf("Created group: %v", *group.Name)
+    group, err := createGroup()
+    if err != nil {
+        log.Fatalf("failed to create group: %v", err)
+    }
+    log.Printf("Created group: %v", *group.Name)
 
-	log.Printf("Starting deployment: %s", deploymentName)
-	result, err := createDeployment()
-	if err != nil {
-		log.Fatalf("Failed to deploy: %v", err)
-	}
-	if result.Name != nil {
-		log.Printf("Completed deployment %v: %v", deploymentName, *result.Properties.ProvisioningState)
-	} else {
-		log.Printf("Completed deployment %v (no data returned to SDK)", deploymentName)
-	}
-	getLogin()
+    log.Printf("Starting deployment: %s", deploymentName)
+    result, err := createDeployment()
+    if err != nil {
+        log.Fatalf("Failed to deploy: %v", err)
+    }
+    if result.Name != nil {
+        log.Printf("Completed deployment %v: %v", deploymentName, *result.Properties.ProvisioningState)
+    } else {
+        log.Printf("Completed deployment %v (no data returned to SDK)", deploymentName)
+    }
+    getLogin()
 }
 ```
 
@@ -171,8 +170,8 @@ The `createGroup` function creates the resource group. Looking at the call flow 
 
 ```go
 func createGroup() (group resources.Group, err error) {
-	groupsClient := resources.NewGroupsClient(clientData.SubscriptionID)
-	groupsClient.Authorizer = authorizer
+    groupsClient := resources.NewGroupsClient(clientData.SubscriptionID)
+    groupsClient.Authorizer = authorizer
 
         return groupsClient.CreateOrUpdate(
                 ctx,
@@ -188,9 +187,7 @@ The general flow of interacting with an Azure service is:
 * Set the authorization method for the client, allowing it to interact with the remote API.
 * Make the method call on the client corresponding to the remote API. Service client methods usually take the name of the resource and a metadata object.
 
-The [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) function is used to perform a type conversion here. The parameters for SDK methods almost exclusively take pointers, so convenience methods are 
-provided to make the type conversions easy. See the documentation for the [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list 
-of convenience converters and their behavior.
+The [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) function is used to perform a type conversion here. The parameters for SDK methods almost exclusively take pointers, so convenience methods are provided to make the type conversions easy. See the documentation for the [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) module for the complete list of convenience converters and their behavior.
 
 The `groupsClient.CreateOrUpdate` method returns a pointer to a data type representing the resource group. A direct return value of this kind indicates a short-running operation that is meant to be synchronous. In the next section, you'll see an example of a long-running operation and how to interact with it.
 
@@ -200,17 +197,17 @@ Once the resource group is created, it's time to run the deployment. This code i
 
 ```go
 func createDeployment() (deployment resources.DeploymentExtended, err error) {
-	template, err := readJSON(templateFile)
-	if err != nil {
-		return
-	}
-	params, err := readJSON(parametersFile)
-	if err != nil {
-		return
-	}
-	(*params)["vm_password"] = map[string]string{
-		"value": clientData.VMPassword,
-	}
+    template, err := readJSON(templateFile)
+    if err != nil {
+        return
+    }
+    params, err := readJSON(parametersFile)
+    if err != nil {
+        return
+    }
+    (*params)["vm_password"] = map[string]string{
+        "value": clientData.VMPassword,
+    }
         // ...
 ```
 
@@ -220,46 +217,45 @@ constructing the metadata for the resource deployment call. The VM's password is
 ```go
         // ...
 
-	deploymentsClient := resources.NewDeploymentsClient(clientData.SubscriptionID)
-	deploymentsClient.Authorizer = authorizer
+    deploymentsClient := resources.NewDeploymentsClient(clientData.SubscriptionID)
+    deploymentsClient.Authorizer = authorizer
 
-	deploymentFuture, err := deploymentsClient.CreateOrUpdate(
-		ctx,
-		resourceGroupName,
-		deploymentName,
-		resources.Deployment{
-			Properties: &resources.DeploymentProperties{
-				Template:   template,
-				Parameters: params,
-				Mode:       resources.Incremental,
-			},
-		},
-	)
-	if err != nil {
-		return
-	}
+    deploymentFuture, err := deploymentsClient.CreateOrUpdate(
+        ctx,
+        resourceGroupName,
+        deploymentName,
+        resources.Deployment{
+            Properties: &resources.DeploymentProperties{
+                Template:   template,
+                Parameters: params,
+                Mode:       resources.Incremental,
+            },
+        },
+    )
+    if err != nil {
+        return
+    }
 ```
 
-This code follows the same pattern as creating the resource group. A new client is created, given the ability to authenticate with Azure, and then a method is called. 
-The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen throughout the SDK. 
+This code follows the same pattern as creating the resource group. A new client is created, given the ability to authenticate with Azure, and then a method is called.
+The method even has the same name (`CreateOrUpdate`) as the corresponding method for resource groups. This pattern is seen throughout the SDK.
 Methods that perform similar work normally have the same name.
 
-The biggest difference comes in the return value of the `deploymentsClient.CreateOrUpdate` method. This value is of the [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) type, which follows the 
-[future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you can poll, cancel, or block on their completion.
+The biggest difference comes in the return value of the `deploymentsClient.CreateOrUpdate` method. This value is of the [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) type, which follows the [future design pattern](https://en.wikipedia.org/wiki/Futures_and_promises). Futures represent a long-running operation in Azure that you can poll, cancel, or block on their completion.
 
 ```go
         //...
-	err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
-	if err != nil {
-		return
-	}
-	deployment, err = deploymentFuture.Result(deploymentsClient)
+    err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
+    if err != nil {
+        return
+    }
+    deployment, err = deploymentFuture.Result(deploymentsClient)
 
-	// Work around possible bugs or late-stage failures
-	if deployment.Name == nil || err != nil {
-		deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-	}
-	return
+    // Work around possible bugs or late-stage failures
+    if deployment.Name == nil || err != nil {
+        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
+    }
+    return
 ```
 
 For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client that created
@@ -274,25 +270,25 @@ To do anything with the newly created VM, you need the assigned IP address. IP a
 
 ```go
 func getLogin() {
-	params, err := readJSON(parametersFile)
-	if err != nil {
-		log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
-	}
+    params, err := readJSON(parametersFile)
+    if err != nil {
+        log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
+    }
 
-	addressClient := network.NewPublicIPAddressesClient(clientData.SubscriptionID)
-	addressClient.Authorizer = authorizer
-	ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
-	ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
-	if err != nil {
-		log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
-	}
+    addressClient := network.NewPublicIPAddressesClient(clientData.SubscriptionID)
+    addressClient.Authorizer = authorizer
+    ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
+    ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
+    if err != nil {
+        log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
+    }
 
-	vmUser := (*params)["vm_user"].(map[string]interface{})
+    vmUser := (*params)["vm_user"].(map[string]interface{})
 
-	log.Printf("Log in with ssh: %s@%s, password: %s",
-		vmUser["value"].(string),
-		*ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
-		clientData.VMPassword)
+    log.Printf("Log in with ssh: %s@%s, password: %s",
+        vmUser["value"].(string),
+        *ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
+        clientData.VMPassword)
 }
 ```
 
@@ -302,8 +298,7 @@ The value for the VM user is also loaded from the JSON. The VM password was load
 
 ## Next steps
 
-In this quickstart, you took an existing template and deployed it through Go. Then you connected 
-to the newly created VM via SSH to ensure that it's running.
+In this quickstart, you took an existing template and deployed it through Go. Then you connected to the newly created VM via SSH to ensure that it's running.
 
 To continue learning about working with virtual machines in the Azure environment with Go, take a look at the [Azure compute samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) or [Azure resource management samples for Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
 
