@@ -32,7 +32,7 @@ The Azure SDK for Go offers several different types of authentication, using dif
 > [!IMPORTANT]
 > If you use an authentication type other than client credentials, your application must be registered in Azure Active Directory. To learn how,
 > see [Integrating applications with Azure Active Directory](/azure/active-directory/develop/active-directory-integrating-applications).
-
+>
 > [!NOTE]
 > Unless you have special requirements, avoid username/password authentication. In situations where user-based sign in is appropriate, device token authentication can usually be used instead.
 
@@ -49,7 +49,7 @@ All authentication functions and types are available in the `github.com/Azure/go
 
 ## Use environment-based authentication
 
-If you're running your application in a tightly controlled environment such as in a container, environment-based authentication is a natural choice. You configure the shell environment before running your application and the Go SDK reads these environment variables at runtime to authenticate with Azure. 
+If you're running your application in a tightly controlled environment such as in a container, environment-based authentication is a natural choice. You configure the shell environment before running your application and the Go SDK reads these environment variables at runtime to authenticate with Azure.
 
 Environment-based authentication has support for all authentication methods except device tokens, evaluated in the following order: Client credentials, certificates, username/password, and Managed Service Identity (MSI). If a required environment variable is unset or the SDK gets a refusal from the authentication service, the next authentication type is tried. If the SDK cannot authenticate from the environment, it returns an error.
 
@@ -104,7 +104,6 @@ The `ResourceManagerURL` varies based on the region name, machine name and exter
 | Integrated Systems | `https://management.(region).ext-(machine-name).(FQDN)` |
 
 For more details on how to use Azure SDK for Go on Azure Stack see [Use API version profiles with Go in Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)
-
 
 ## Use file-based authentication
 
