@@ -4,7 +4,7 @@ description: Deploy a virtual machine using the Azure SDK for Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
@@ -21,7 +21,7 @@ At the end of this quickstart, you have a running VM that you log into with a us
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-If you use a local install of the Azure CLI, this quickstart requires CLI version __2.0.28__ or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
+If you use a local install of the Azure CLI, this quickstart requires CLI version __2.0.28__ or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI](/cli/azure/install-azure-cli).
 
 ## Install the Azure SDK for Go
 
