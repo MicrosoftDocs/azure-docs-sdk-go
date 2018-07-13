@@ -21,7 +21,7 @@ At the end of this quickstart, you have a running VM that you log into with a us
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-If you use a local install of the Azure CLI, this quickstart requires CLI version __2.0.28__ or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI 2.0](/cli/azure/install-azure-cli).
+If you use a local install of the Azure CLI, this quickstart requires CLI version __2.0.28__ or later. Run `az --version` to make sure your CLI install meets this requirement. If you need to install or upgrade, see [Install the Azure CLI](/cli/azure/install-azure-cli).
 
 ## Install the Azure SDK for Go
 
@@ -32,7 +32,7 @@ If you use a local install of the Azure CLI, this quickstart requires CLI versio
 To sign in non-interactively to Azure with an application, you need a service principal. Service principals are part of role-based access control (RBAC), which creates a unique user identity. To create a new service principal with the CLI, run the following command:
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 Set the environment variable `AZURE_AUTH_LOCATION` to be the full path to this file. Then the SDK locates and reads the credentials directly from this file, without you having to make any changes or record information from the service principal.
@@ -56,13 +56,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-If there is a failure in the deployment, you get a message indicating that there was an issue, but it may not include enough detail. Using the Azure CLI, get the full details of the deployment failure with the following command:
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-If the deployment is successful, you see a message giving the username, IP address, and password for logging into the newly created virtual machine. SSH into this machine to confirm that it is up and running.
+If the deployment is successful, you see a message giving the username, IP address, and password for logging into the newly created virtual machine. SSH into this machine to confirm that it is up and running. Any errors that happen during deployment should display enough information to make it possible to fix the problem, and then try running the application again.
 
 ## Cleaning up
 
@@ -71,6 +65,20 @@ Clean up the resources created during this quickstart by deleting the resource g
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+You should also delete the service principal that was created, so that it cannot be accessed. Inside of the `quickstart.auth` file created, there is a JSON key for `clientId`. Copy this value,
+and run the Azure CLI command:
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+Where you supply the value for `CLIENT_ID_VALUE` from `quickstart.auth`.
+
+> [!WARNING]
+> Failing to delete the service principal for this application leaves it active in your Azure Active Directory tenant.
+> While both the name and password for the service principal are generated as UUIDs, make sure that you follow
+> good security practices by deleting any unused service principals and Azure Active Directory Applications.
 
 ## Code in depth
 
@@ -249,20 +257,13 @@ The biggest difference comes in the return value of the `deploymentsClient.Creat
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 For this example, the best thing to do is to wait for the operation to complete. Waiting on a future requires both a [context object](https://blog.golang.org/context) and the client that created
 the `Future`. There are two possible error sources here: An error caused on the client side when trying to invoke the method, and an error response from the server. The latter is returned as
 part of the `deploymentFuture.Result` call.
-
-Once the deployment information is retrieved, there is a workaround for possible bugs where the deployment information may be empty with a manual call to `deploymentsClient.Get` to ensure that the data is populated.
 
 ### Obtaining the assigned IP address
 
