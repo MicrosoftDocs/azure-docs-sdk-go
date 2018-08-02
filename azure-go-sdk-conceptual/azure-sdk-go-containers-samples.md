@@ -20,5 +20,5 @@ All samples for the Azure SDK for Go are available on [GitHub](https://github.co
 
 | Name | Description |
 |------|-------------|
-| [containerinstance/containerinstance](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/containerinstance/containerinstance.go) | Work with container groups in Azure Container Instances. Create and modify containers in an ACI group. |
-| [containerservice/managedcluster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/containerservice/managedcluster.go) | Create, delete, and inspect Azure Kubernetes Service (AKS) clients. |
+| [compute/container_instance](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/container_instance.go) | Work with container groups in Azure Container Instances. Create and modify containers in an ACI group. |
+| [compute/container_cluster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/container_cluster.go) | Create, delete, and inspect Azure Kubernetes Service (AKS) clients. |

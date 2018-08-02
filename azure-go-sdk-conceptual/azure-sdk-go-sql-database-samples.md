@@ -21,4 +21,3 @@ All samples for the Azure SDK for Go are available on [GitHub](https://github.co
 | Name | Description |
 |------|-------------|
 | [sql/sql](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/sql/sql.go) | Create and manage new SQL servers, and work with databases on them. |
-| [sql/queries](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/sql/queries.go) | Create tables, add rows, and query data in Azure SQL Database. |

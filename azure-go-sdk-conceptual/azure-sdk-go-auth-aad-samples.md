@@ -19,6 +19,6 @@ All samples for the Azure SDK for Go are available on [GitHub](https://github.co
 
 | Name | Description |
 |------|-------------|
-| [iam/oauth](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/iam/oauth.go) | How to authenticate with Azure to use services. |
-| [authorization/auth](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/authorization/auth.go) | Add, remove, and inspect AAD roles. |
+| [internal/iam/authorizers](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/internal/iam/authorizers.go) | How to authenticate with Azure to use services. |
+| [authorization/authorization](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/authorization/authorization.go) | Add, remove, and inspect AAD roles. |
 | [graphrbac/graph](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/graphrbac/graph.go) | Inspect and create service principals and AAD applications. Add secrets to an existing service principal or application. |
