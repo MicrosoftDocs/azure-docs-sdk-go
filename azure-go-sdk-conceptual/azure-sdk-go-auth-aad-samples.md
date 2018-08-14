@@ -11,7 +11,7 @@ ms.technology: azure-sdk-go
 ms.service: active-directory
 ms.devlang: go
 ---
-# Azure SDK for Go samples for authentication and AAD
+# Azure SDK for Go samples for authentication and AAD TEST
 
 The following table links to selected samples of Go source code that you can use to authenticate with the Azure SDK for Go and work with Azure Active Directory (AAD) services.
 
