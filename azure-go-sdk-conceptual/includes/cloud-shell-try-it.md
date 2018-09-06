@@ -2,14 +2,14 @@
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/12/2018 
+ms.date: 09/05/2018 
 ms.topic: include
 ms.prod: azure
 ms.technology: azure-cli
 ---
 ## Launch Azure Cloud Shell
 
-The Azure Cloud Shell is a free interactive shell that you can use to run the steps in this article. It has common Azure tools pre-installed and configured to use with your account. Just click the **Copy** to copy the code, paste it into the Cloud Shell, and then press enter to run it.  There are a few ways to launch the Cloud Shell:
+The Azure Cloud Shell is an interactive shell that runs on Azure. It has common tools pre-installed and configured to use with your account. Just click the **Copy** to copy the code, paste it into the Cloud Shell, and then press enter to run it.  There are a few ways to launch the Cloud Shell:
 
 |  |   |
 |-----------------------------------------------|---|
