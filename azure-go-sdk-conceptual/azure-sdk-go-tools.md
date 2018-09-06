@@ -1,10 +1,10 @@
 ---
-title: Tools for Go developers 
+title: Tools for developers using the Azure SDK for Go
 description: Tools for working with the Azure SDK for Go, and Azure services
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
@@ -24,29 +24,26 @@ The Azure CLI provides a command-line interface to create and configure Azure re
 
 ## Visual Studio Code
 
-Visual Studio Code is a lightweight editor that has comprehensive support for the Go language through extensions. These extensions 
-include support for features like autocomplete, `impl` templates, refactoring, and debugging. Visual Studio Code also offers many 
-extensions for common developer tools such as source control, and even offers extensions for direct interactions with Azure services. 
-Microsoft maintains an official meta-extension including these Azure extensions, including an interactive interface for the Azure CLI.
+Visual Studio Code is a lightweight editor that offers Go support. This extension offers features like
+autocomplete, `impl` templates, refactoring, and debugging. Visual Studio Code also offers support for in-editor
+access to source control, and extensions for working with Azure services.
 
 * [Install Visual Studio Code](https://code.visualstudio.com/Download)
 * [Get the Visual Studio Code Go extension](https://code.visualstudio.com/docs/languages/go)
-* [Get the Azure Tools extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
+* [Get the Visual Studio Code Azure Tools extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
 
 ## CI/CD with Azure DevOps Project
 
-With the Azure DevOps Project pipeline, you can set up a continuous build and deploy for your Go applications. All you need is an available git
-repo, and you can set up to deploy and test directly on your Azure resources. The configuration pipeline is easy to create and manage,
-and since it's provisioned directly on Azure, you can control it in the same way that you handle your other Azure resources.
+Azure DevOps Project pipelines allow you to set up a continuous integration system for your Go applications. All it takes is a git repo, and you can 
+deploy and test directly on Azure.
 
 > [!div class="nextstepaction"]
-> [Learn how to create a CI/CD pipeline with Azure DevOps Project](/devops-project/azure-devops-project-go)
+> [Learn how to create a CI/CD pipeline with Azure DevOps Project](/azure/devops-project/azure-devops-project-go)
 
 ## Dependency management with dep
 
-There are many ways to manage your package dependencies and do vendoring with Go, since there is no official solution yet. The
-recommended way to perform this management is with the `dep` dependency manager. 
-The Azure SDK for Go uses dep for its vendoring, and is guaranteed to correctly get dependencies for any other project using dep.
+The Azure SDK for Go uses dep for dependency management. The dep command allows you to pull and vendor requirements for your Go application,
+ avoiding version conflicts and ensuring that your project works correctly.
 
 > [!div class="nextstepaction"]
 > [Get the dep dependency manager](https://github.com/golang/dep)
