@@ -34,8 +34,8 @@ all considered to be in preview.
 
 ## Vendor the Azure SDK for Go
 
-The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. In order
-to use `dep` support, add `github.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `14.0.0`, add the following entry:
+The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. To use `dep`
+in your own project, add `github.com/Azure/azure-sdk-for-go` to a `[[constraint]]` section of your `Gopkg.toml`. For example, to vendor on version `14.0.0`, add the following entry:
 
 ```
 [[constraint]]
@@ -63,16 +63,17 @@ are:
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Modules for Azure services are versioned independently from the SDK APIs for them. These versions are part of the module import path,
-and are from either a _service version_ or a _profile_. Currently, it is recommended that you use a specific service version for
-both development and release. Services are located under the `services` module. The full path for the import is the name of the service, followed by
-the version in `YYYY-MM-DD` format, followed by the service name again. For example, to include the `2017-03-30` version of the Compute service:
+Go packages and Azure services are versioned independently. The service versions are part of the module import path, underneath
+the `services` module. The full path for the module is the name of the service, followed by
+the version in `YYYY-MM-DD` format, followed by the service name again. For example, to import the `2017-03-30` version of the Compute service:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-Right now it is recommended that you use the latest version of a service, unless you have a reason to do otherwise.
+It's recommended that you use the latest version of a service when starting development and keep it consistent.
+Service requirements may change between versions that could break your code, even if there are no Go SDK updates during
+that time.
 
 If you need a collective snapshot of services, you can also select a single profile version. Right now, the only locked profile is version 
 `2017-03-09`, which may not have the latest features of services. Profiles are located under the `profiles` module, with their version in the `YYYY-MM-DD` format. 
