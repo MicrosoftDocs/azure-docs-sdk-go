@@ -1,5 +1,5 @@
 ---
-title: Tools for Go developers 
+title: Tools for developers using the Azure SDK for Go
 description: Tools for working with the Azure SDK for Go, and Azure services
 author: sptramer
 ms.author: sttramer
@@ -38,7 +38,7 @@ Azure DevOps Project pipelines allow you to set up a continuous integration syst
 deploy and test directly on Azure.
 
 > [!div class="nextstepaction"]
-> [Learn how to create a CI/CD pipeline with Azure DevOps Project](/devops-project/azure-devops-project-go)
+> [Learn how to create a CI/CD pipeline with Azure DevOps Project](/azure/devops-project/azure-devops-project-go)
 
 ## Dependency management with dep
 

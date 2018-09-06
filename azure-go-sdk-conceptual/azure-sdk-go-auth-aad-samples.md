@@ -6,7 +6,6 @@ ms.author: sttramer
 manager: carmonm
 ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: active-directory
 ms.devlang: go
