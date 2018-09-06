@@ -1,12 +1,11 @@
 ---
 title: Azure SDK for Go samples for containers 
-description: Selected samples for working with ACI and AKS from the Azure SDK for Go.
+description: Selected samples for working with Azure Container Instances and Azure Kubernetes Service from the Azure SDK for Go.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
 ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: container-service
 ms.devlang: go
