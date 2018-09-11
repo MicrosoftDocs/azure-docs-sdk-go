@@ -23,4 +23,4 @@ All samples for the Azure SDK for Go are available on [GitHub](https://github.co
 | [compute/vm_disk](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_disk.go) | Create, attach, detach, update, and encrypt data disks for a VM. |
 | [compute/vm](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) | Create, update, deactivate, and manage VMs. |
 | [compute/vm_with_availabilityset](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_availabilityset.go) | Create availability sets and load balancers for VMs. |
-| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | Create and manage Managed Service Identities (MSIs) for VMs. |
+| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | Create and modify managed identities for Azure resources. | 
