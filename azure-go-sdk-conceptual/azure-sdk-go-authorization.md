@@ -24,7 +24,7 @@ The Azure SDK for Go offers several different types of authentication, using dif
 |---------------------|---------------------|
 | Certificate-based authentication | You have an X509 certificate that was configured for an Azure Active Directory (AAD) user or service principal. To learn more, see [Get started with certificate-based authentication in Azure Active Directory]. |
 | Client credentials | You have a configured service principal that is set up for this application or a class of applications it belongs to. To learn more, see [Create a service principal with Azure CLI]. |
-| Managed Service Identity (MSI) | Your application is running on an Azure resource that has been configured with Managed Service Identity (MSI). To learn more, see [Managed Service Identity (MSI) for Azure resources]. |
+| Managed identities for Azure resources | Your application is running on an Azure resource that has been configured with a managed identity. To learn more, see [Managed identities for Azure resources]. |
 | Device token | Your application is meant to be used interactively __only__. Users may have multi-factor authentication enabled. Users have access to a web browser to sign in. For more information, see [Use device token authentication](#use-device-token-authentication).|
 | Username/password | You have an interactive application that can't use any other authentication method. Your users don't have multi-factor authentication enabled for their AAD sign-in. |
 
@@ -37,7 +37,7 @@ The Azure SDK for Go offers several different types of authentication, using dif
 
 [Get started with certificate-based authentication in Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Create a service principal with Azure CLI]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Managed Service Identity (MSI) for Azure resources]: /azure/active-directory/managed-service-identity/overview
+[Managed identities for Azure resources]: /azure/active-directory/managed-identities-azure-resources/overview
 
 These authentication types are available through different methods.
 
@@ -60,7 +60,7 @@ Environment-based authentication has support for all authentication methods exce
 * Client credentials
 * X509 certificates
 * Username/password
-* Managed Service Identity (MSI)
+* Managed identities for Azure resources
 
 If an authentication type has unset values or is refused, the SDK automatically tries the next authentication type. When no more types are available to try,
 the SDK returns an error.
@@ -80,7 +80,7 @@ The following table details the environment variables that need to be set for ea
 | | `AZURE_CLIENT_ID` | The application client ID. |
 | | `AZURE_USERNAME` | The username to sign in with. |
 | | `AZURE_PASSWORD` | The password to sign in with. |
-| __MSI__ | | No credentials are needed for MSI authentication. The application must be running on an Azure resource configured to use MSI. For details, see [Managed Service Identity (MSI) for Azure resources]. |
+| __Managed identity__ | | No credentials are needed for managed identity authentication. The application must be running on an Azure resource configured to use managed identities. For details, see [Managed identities for Azure resources]. |
 
 To connect to a cloud or management endpoint other than the default Azure public cloud, set the following environment variables. The most common reasons are if you use Azure Stack, a cloud in a different geographic region, or the classic deployment model.
 
@@ -166,7 +166,7 @@ The following table lists the types in the SDK that conform to the `AuthorizerCo
 |---------------------|-----------------------|
 | Certificate-based authentication | [ClientCertificateConfig] |
 | Client credentials | [ClientCredentialsConfig] |
-| Managed Service Identity (MSI) | [MSIConfig] |
+| Managed identities for Azure resources | [MSIConfig] |
 | Username/password | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig
