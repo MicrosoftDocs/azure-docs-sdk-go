@@ -42,7 +42,7 @@ deploy and test directly on Azure.
 
 ## Dependency management with dep
 
-The Azure SDK for Go uses dep for dependency management. The dep command allows you to pull and vendor requirements for your Go application,
+The Azure SDK for Go uses dep for dependency management. The dep command allows you to pull vendor requirements for your Go application,
  avoiding version conflicts and ensuring that your project works correctly.
 
 > [!div class="nextstepaction"]
