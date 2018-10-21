@@ -66,20 +66,21 @@ the SDK returns an error.
 
 The following table details the environment variables that need to be set for each authentication type supported by environment-based authentication.
 
-| Authentication type | Environment variable | Description |
-| ------------------- | -------------------- | ----------- |
-| __Client credentials__ | `AZURE_TENANT_ID` | The ID for the Active Directory tenant that the service principal belongs to. |
-| | `AZURE_CLIENT_ID` | The name or ID of the service principal. |
-| | `AZURE_CLIENT_SECRET` | The secret associated with the service principal. |
-| __Certificate__ | `AZURE_TENANT_ID` | The ID for the Active Directory tenant that the certificate is registered with. |
-| | `AZURE_CLIENT_ID` | The application client ID associated with the certificate. |
-| | `AZURE_CERTIFICATE_PATH` | The path to the client certificate file. |
-| | `AZURE_CERTIFICATE_PASSWORD` | The password for the client certificate. |
-| __Username/Password__ | `AZURE_TENANT_ID` | The ID for the Active Directory tenant that the user belongs to. |
-| | `AZURE_CLIENT_ID` | The application client ID. |
-| | `AZURE_USERNAME` | The username to sign in with. |
-| | `AZURE_PASSWORD` | The password to sign in with. |
-| __Managed identity__ | | No credentials are needed for managed identity authentication. The application must be running on an Azure resource configured to use managed identities. For details, see [Managed identities for Azure resources]. |
+
+|  Authentication type   |     Environment variable     |                                                                                                     Description                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Client credentials** |      `AZURE_TENANT_ID`       |                                                                    The ID for the Active Directory tenant that the service principal belongs to.                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       The name or ID of the service principal.                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  The secret associated with the service principal.                                                                                   |
+|    **Certificate**     |      `AZURE_TENANT_ID`       |                                                                   The ID for the Active Directory tenant that the certificate is registered with.                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              The application client ID associated with the certificate.                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       The path to the client certificate file.                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       The password for the client certificate.                                                                                       |
+| **Username/Password**  |      `AZURE_TENANT_ID`       |                                                                           The ID for the Active Directory tenant that the user belongs to.                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              The application client ID.                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            The username to sign in with.                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            The password to sign in with.                                                                                             |
+|  **Managed identity**  |                              | No credentials are needed for managed identity authentication. The application must be running on an Azure resource configured to use managed identities. For details, see [Managed identities for Azure resources]. |
 
 To connect to a cloud or management endpoint other than the default Azure public cloud, set the following environment variables. The most common reasons are if you use Azure Stack, a cloud in a different geographic region, or the classic deployment model.
 

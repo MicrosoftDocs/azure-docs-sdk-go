@@ -42,6 +42,7 @@
       "feedback_product_url": "https://github.com/Azure/azure-sdk-for-go/issues/new"
     },
     "template": [],
-    "dest": "azure-go-sdk-conceptual"
+    "dest": "azure-go-sdk-conceptual",
+    "markdownEngineName": "markdig"
   }
 }
