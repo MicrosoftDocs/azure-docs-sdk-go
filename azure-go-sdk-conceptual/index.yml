@@ -68,7 +68,10 @@ sections:
       href: https://docs.microsoft.com/azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com//azure/media/index/PostgreSQL.svg
-  - title: Samples
+- title: Samples
+  items:
+  - type: list
+    style: unordered
     items:
     - type: list
       style: unordered
@@ -78,4 +81,3 @@ sections:
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance">Deploy a container to Azure Container Instances</a>
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice">Create a cluster in Azure Kubernetes Service</a>
       - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage">Work with Azure Storage services</a>
-
