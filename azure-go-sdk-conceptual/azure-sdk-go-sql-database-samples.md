@@ -6,7 +6,7 @@ ms.author: sttramer
 manager: carmonm
 ms.date: 09/05/2018
 ms.topic: sample
-ms.technology: azure-sdk-go
+ms.subservice: development
 ms.service: sql-database
 ms.devlang: go
 ---
