@@ -9,7 +9,7 @@ ms.date: 09/05/2018
 ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.component: authentication
+ms.subservice: authentication
 ---
 # Authentication methods in the Azure SDK for Go
 
