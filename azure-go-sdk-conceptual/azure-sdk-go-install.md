@@ -30,7 +30,6 @@ all considered to be in preview.
 | Storage Queue | [github.com/Azure/azure-storage-queue-go](https://github.com/Azure/azure-storage-queue-go) |
 | Event Hub | [github.com/Azure/azure-event-hubs-go](https://github.com/Azure/azure-event-hubs-go) |
 | Service Bus | [github.com/Azure/azure-service-bus-go](https://github.com/Azure/azure-service-bus-go) |
-| Application Insights | [github.com/Microsoft/ApplicationInsights-go](https://github.com/Microsoft/ApplicationInsights-go) |
 
 ## Vendor the Azure SDK for Go
 
