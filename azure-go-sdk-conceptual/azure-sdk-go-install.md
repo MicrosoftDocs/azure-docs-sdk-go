@@ -31,16 +31,6 @@ all considered to be in preview.
 | Event Hub | [github.com/Azure/azure-event-hubs-go](https://github.com/Azure/azure-event-hubs-go) |
 | Service Bus | [github.com/Azure/azure-service-bus-go](https://github.com/Azure/azure-service-bus-go) |
 
-There are also packages for some services maintained by the community.
-
-> [!IMPORTANT]
-> __These packages are not officially supported or maintained by Microsoft.__ For support, file issues on their GitHub
-> project. All support and SLAs are determined by the package maintainers.
-
-| Service | Package |
-|---------|---------|
-| Application Insights | [github.com/Microsoft/ApplicationInsights-go](https://github.com/Microsoft/ApplicationInsights-go) |
-
 ## Vendor the Azure SDK for Go
 
 The Azure SDK for Go may be vendored through [dep](https://github.com/golang/dep). For stability reasons, vendoring is recommended. To use `dep`
